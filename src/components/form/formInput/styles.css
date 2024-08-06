@@ -1,0 +1,48 @@
+.form-group {
+    margin-bottom: 24px;
+  }
+  
+  .form-input{
+    padding: 3px 8px;
+    border-radius: 16px;
+    opacity: 0.5;
+    background: linear-gradient(109deg, rgba(201, 201, 201, 0.80) 1.57%, rgba(196, 196, 196, 0.10) 100%);
+    display: flex;
+    align-items: center;
+    border: 1px solid #fff;
+  }
+
+  input {
+    border: none;
+    background-color: transparent;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    background: transparent; 
+    color: #fff; 
+    padding: 10px;
+    width: 80%; 
+  }
+  
+  .form-label {
+    color: white;
+  }
+
+  .field {
+    border: 2px solid black;
+    border-radius: 16px;
+  }
+  
+  .form-input:active,
+  .form-input:focus {
+    outline: 0;
+  }
+  
+  .view-password {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+  }
