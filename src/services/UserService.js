@@ -16,10 +16,6 @@ const UserService = {
   updateUser(id, user) {
     return api.put(`/user/${id}`, user);
   },
-
-  findUserByEmail(email) {
-    return api.get(`/user/email/${email}`);
-  }
 };
 
 export default UserService;
