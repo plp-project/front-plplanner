@@ -6,7 +6,7 @@ const Sidebar = () => {
   const [collapsed, setcollapsed] = React.useState(false);
   return (
     <div
-      className={`bg-[#121417] h-[calc(100vh-3rem)] border-r border-r-[#9fadbc29] transition-all linear duration-500 flex-shrink-0 ${
+      className={`bg-[#00585E] h-[calc(100vh-3rem)] border-r border-r-[#9fadbc29] transition-all linear duration-500 flex-shrink-0 ${
         collapsed ? "w-[42px]" : "w-[280px]"
       }`}
     >
@@ -23,7 +23,17 @@ const Sidebar = () => {
       {!collapsed && 
         <div>
           <div className="workspace p-3 flex justify-between border-b border-b-[#9fadbc29]">
-            <h4>Nome da pessoa</h4>
+          <div className="right flex items-center space-x-4"> 
+
+                <img className='rounded-full' src="https://placehold.co/28x28/png" alt="" />
+
+                <div className='content-flex flex-col'>
+                  <span className='text-sm w-full'>Rafael Alves</span>
+                  <br />
+                  <span className="text-xs">rafael@email.com</span>
+                </div>
+                
+            </div>
             <button
               onClick={() => setcollapsed(!collapsed)}
               className="hover:bg-slate-600 rounded-sm"

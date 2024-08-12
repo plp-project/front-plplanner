@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
+import { Search } from "react-feather";
+import SecondHeader from "./SecondHeader";
 
 const Main = () => {
-    return (
-        <div className='flex flex-col bg-slate-900 w-full'>
-            Main
-        </div>
-    )
-}
+  return (
+    <SecondHeader></SecondHeader>
+);
+};
 
 export default Main;
