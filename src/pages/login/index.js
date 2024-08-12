@@ -1,6 +1,6 @@
 import React from 'react';
 import FormBoxLogin from '../../components/form/formBoxLogin';
-import './styles.css';
+import './style.css';
 
 
 const LoginPage = () => {

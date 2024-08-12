@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
 
 import Login from './pages/login'
+import HomePage from './pages/home';
 
 function App() {
   return (
@@ -24,9 +25,13 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
+          <Route element={<HomePage />} path="/home" />
+          <Route element={<Navigate to="/home" />} path="/" />
+          
           <Route element={<Navigate to="/login" />} path="/" />
           <Route element={<Navigate to="/login" />} path="/sair" />
           <Route element={<Login />} path="/login" />
+          <Route element={<Navigate to="/" />} path="/" />
         </Routes>
       </BrowserRouter>
     </>
