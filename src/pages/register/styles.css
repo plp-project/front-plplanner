@@ -6,8 +6,15 @@
     align-items: center;
     justify-content: center;
 }
-.login{
+.register{
     background-image: url(../../assets/background.png);
     background-repeat: no-repeat;
     background-size: cover;
+}
+.box {
+    padding: 60px 0;
+}
+
+.logo {
+    padding-top: 60px;
 }

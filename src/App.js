@@ -7,6 +7,7 @@ import { Slide, ToastContainer } from "react-toastify";
 
 import Login from './pages/login'
 import HomePage from './pages/home';
+import Register from './pages/register';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route element={<Navigate to="/login" />} path="/sair" />
           <Route element={<Login />} path="/login" />
           <Route element={<Navigate to="/" />} path="/" />
+          <Route element={<Register />} path="/cadastro" />
         </Routes>
       </BrowserRouter>
     </>

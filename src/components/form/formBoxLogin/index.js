@@ -17,8 +17,7 @@ const FormBoxLogin = () => {
     try {
       const response = await UserService.login({ email, password });
       setAuthToken(response.data.token);
-      toast.success('login realizado');
-      navigate('/dashboard');
+      navigate('/principal');
     } catch (error) {
       toast.error('Login failed');
     }
@@ -40,7 +39,7 @@ const FormBoxLogin = () => {
         <FormInput
           label="Senha:"
           type="password"
-          placeholder="Senha"
+          placeholder="Digite uma senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
