@@ -4,14 +4,14 @@ import Categoria from "./Categoria";
 import { SketchPicker } from "react-color";
 
 const Sidebar = () => {
-  const [collapsed, setCollapsed] = React.useState(false);
+  
   const [categorias, setCategorias] = React.useState([
     { nome: "Categoria 1", cor: "#f87171" },
     { nome: "Categoria 2", cor: "#34d399" },
     { nome: "Categoria 3", cor: "#fbbf24" },
     { nome: "Categoria 4", cor: "#facc15" },
   ]);
-
+  const [collapsed, setCollapsed] = React.useState(false);
   const [novoNome, setNovoNome] = React.useState("");
   const [corSelecionada, setCorSelecionada] = React.useState("#ffffff");
   const [showForm, setShowForm] = React.useState(false);
@@ -33,9 +33,10 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`bg-[#00585E] h-[calc(100vh-3rem)] border-r border-r-[#9fadbc29] transition-all linear duration-500 flex-shrink-0 ${
+      className={`bg-[#00585E] h-[calc(100vh-3rem)] border-r border-r-[#9fadbc29] transition-all linear duration-500 flex-shrink-0 
+        ${
         collapsed ? "w-[42px]" : "w-[280px]"
-      }`}
+        }`}
     >
       {collapsed && (
         <div className="p-2">

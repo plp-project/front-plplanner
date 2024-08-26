@@ -17,7 +17,7 @@ const FormBoxLogin = () => {
     try {
       const response = await UserService.login({ email, password });
       setAuthToken(response.data.token);
-      navigate('/principal');
+      navigate('/home');
     } catch (error) {
       toast.error('Login failed');
     }
