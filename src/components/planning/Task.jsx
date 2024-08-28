@@ -3,6 +3,7 @@ import { Edit2 } from "react-feather";
 import NewTask from "./NewTask";
 
 const Task = () => {
+
   return (
     <div className="flex flex-col gap-3">
     <div

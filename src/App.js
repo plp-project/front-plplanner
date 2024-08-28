@@ -26,12 +26,14 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route element={<HomePage />} path="/home" />
-          <Route element={<Navigate to="/home" />} path="/" />
           
           <Route element={<Navigate to="/login" />} path="/" />
           <Route element={<Navigate to="/login" />} path="/sair" />
           <Route element={<Login />} path="/login" />
+          <Route element={<HomePage />} path="/home" />
+          <Route element={<Navigate to="/home" />} path="/" />
+          
+          
           <Route element={<Navigate to="/" />} path="/" />
           <Route element={<Register />} path="/cadastro" />
         </Routes>

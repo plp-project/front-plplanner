@@ -2,8 +2,12 @@ import React from "react";
 import { ChevronRight, ChevronLeft, Plus } from "react-feather";
 import Categoria from "./Categoria";
 import { SketchPicker } from "react-color";
+import { useAuth } from '../../contexts/AuthContext';
 
 const Sidebar = () => {
+  
+  const { user } = useAuth();
+  
   
   const [categorias, setCategorias] = React.useState([
     { nome: "Categoria 1", cor: "#f87171" },
@@ -39,10 +43,10 @@ const Sidebar = () => {
         }`}
     >
       {collapsed && (
-        <div className="p-2">
+        <div className="p-2 relative">
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="hover:bg-slate-600 rounded-sm p-1"
+            className="hover:bg-slate-600 rounded-sm p-1 absolute" style={{top: `22px`}}
           >
             <ChevronRight size={18}></ChevronRight>
           </button>
@@ -50,15 +54,13 @@ const Sidebar = () => {
       )}
       {!collapsed && (
         <div>
-          <div className="workspace p-3 flex justify-between border-b border-b-[#9fadbc29]">
-          <div className="right flex items-center space-x-4"> 
-
-                <img className='rounded-full' src="https://placehold.co/28x28/png" alt="" />
+          <div className="p-3 flex justify-between border-b border-b-[#9fadbc29]">
+          <div className="flex items-center space-x-4"> 
 
                 <div className='content-flex flex-col'>
-                  <span className='text-sm w-full'>Rafael Alves</span>
+                  <span className='text-sm w-full'>{user?.name || "Usuário"}</span>
                   <br />
-                  <span className="text-xs">rafael@email.com</span>
+                  <span className="text-xs">{user?.email || "E-mail"}</span>
                 </div>
                 
             </div>
