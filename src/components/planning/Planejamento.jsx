@@ -15,7 +15,7 @@ const Planejamento = () => {
           
         }}
       >
-        <div className="list-body">
+        <div className="list-body flex flex-col gap-2">
           <div className="flex justify-between p-1">
             <span>01/07- Segunda-feira</span>
           </div>
