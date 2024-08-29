@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { Edit2, X } from "react-feather";
 import NewTask from "./NewTask";
+import { useTask } from "../../contexts/TaskContext";
 
 const Task = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "Task 1" },
-  ]);
   const [editingTask, setEditingTask] = useState(null);
   const [editName, setEditName] = useState('');
-
-  const addTask = (name) => {
-    setTasks([...tasks, { id: tasks.length + 1, name }]);
-  };
+  const { tasks, setTasks } = useTask()
+  
 
   const handleEditClick = (task) => {
     setEditingTask(task);
@@ -59,20 +55,20 @@ const Task = () => {
         <div className="flex flex-col gap-2 p-2 border rounded-lg bg-gray-100">
           <input
             type="text"
-            value={editName}
+            value={editName} 
             onChange={(e) => setEditName(e.target.value)}
-            className="p-2 border rounded-md"
+            className="p-2 border rounded-md w-full"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full justify-between">
             <button
               onClick={handleSaveEdit}
-              className="p-2 bg-blue-500 text-white rounded-md"
+              className="p-2 bg-blue-500 text-white rounded-md w-full"
             >
               Save
             </button>
             <button
               onClick={handleCancelEdit}
-              className="p-2 bg-red-500 text-white rounded-md"
+              className="p-2 bg-red-500 text-white rounded-md w-full"
             >
               Cancel
             </button>
@@ -80,7 +76,7 @@ const Task = () => {
         </div>
       )}
 
-      <NewTask addTask={addTask} />
+      <NewTask  />
     </div>
   );
 };
