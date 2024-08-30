@@ -4,8 +4,9 @@ import FormInput from "../form/formInput";
 import UserService from '../../services/UserService';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import './styles.css';
 
-const UserRegister = ({ type }) => {
+const UserRegister = () => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -39,45 +40,39 @@ const UserRegister = ({ type }) => {
     };
   
     return (
-        <div className="form-box p-4">
-          <h2>Cadastre-se</h2>
-          <hr/>
-          <p className='bv'>Bem vindo ao PLPlanner</p>
+        <div className="p-10 box-custom">
+          <h2 className="title-custom-register font mb-5">Cadastre-se</h2>
           <form onSubmit={handleFormSubmit}>
             <FormInput
-                label={"Nome:"}
                 type={"name"}
-                placeholder="Digite seu nome de usuário"
+                placeholder="Usuário"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
             <FormInput
-              label="E-mail:"
               type="email"
               placeholder="exemplo@exemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <FormInput
-              label="Senha:"
               type="password"
-              placeholder="Digite uma senha"
+              placeholder="Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <FormInput
-              label="Confirmar senha:"
               type="password"
-              placeholder="Confirme sua senha"
+              placeholder="Confirmar senha"
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
             <div className="text-center mt-4">
-              <button type="submit" className="form-button">
-                Cadastrar
+              <button type="submit" className="submit-button">
+                Cadastra-se
               </button>
-              <p className="mt-3">
-                Ja possui uma conta? <a href="/login">Entre aqui!</a>
+              <p className="mt-4 text-sm link-page">
+                Já possui uma conta? <a href="/login" className="hover:underline">Entre aqui!</a>
               </p>
             </div>
           </form>

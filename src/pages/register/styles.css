@@ -1,20 +1,35 @@
-.custom-heading {
+.register{
+    background-color: #00585E;
+}
+
+.custom-container {
+    background-color: #7daaad;
+    height: 85%;
+    width: 65vw;
+}
+
+.custom-box {
+    display: flex; 
+    height: 100%;
+}
+  
+  .custom-heading {
     color: white;
-    padding: 200px; 
-    font-size: 3rem;
+    font-size: 16px;
     display: flex; 
     align-items: center;
     justify-content: center;
+    height: 100%;
+    width: 35%;
 }
-.register{
-    background-image: url(../../assets/background.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+  
+.custom-heading p {
+    font-size: 2rem;
 }
-.box {
-    padding: 60px 0;
-}
-
-.logo {
-    padding-top: 60px;
+.custom-form {
+    background-color: white;
+    color: black;
+    border-radius: 25px 0px 0px 25px;
+    height: 100%;
+    width: 70%;
 }
