@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
 const FormBoxLogin = () => {
-  const { login: setAuthToken } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const FormBoxLogin = () => {
     e.preventDefault();
     try {
       const response = await UserService.login({ email, password });
-      setAuthToken(response.data.token);
+      login(response.data.token, response.data.user);
       navigate('/home');
     } catch (error) {
       toast.error('Login failed');

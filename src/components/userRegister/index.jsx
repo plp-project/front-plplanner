@@ -69,7 +69,7 @@ const UserRegister = () => {
             />
             <div className="text-center mt-4">
               <button type="submit" className="submit-button">
-                Cadastra-se
+                Cadastrar-se
               </button>
               <p className="mt-4 text-sm link-page">
                 Já possui uma conta? <a href="/login" className="hover:underline">Entre aqui!</a>
