@@ -6,10 +6,11 @@ import { AuthProvider } from './contexts/AuthContext';
 import { TaskProvider } from './contexts/TaskContext';
 import { CategoryProvider } from './contexts/CategoryContext';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <CategoryProvider>
+ <CategoryProvider>
     <TaskProvider>
       <AuthProvider>
         <App />

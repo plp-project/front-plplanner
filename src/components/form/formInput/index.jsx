@@ -16,27 +16,27 @@ const FormInput = ({
   };
 
   return (
-    <div className="form-group d-flex flex-column">
-      <label className="form-label">{label}</label>
-      <div className="position-relative form-input">
-        {type === 'password' && (
-          <i onClick={togglePasswordVisibility} className="view-password">
-            {showPassword ? (
-              <FaEyeSlash color="#fff" />
-            ) : (
-              <FaEye color="#fff" />
-            )}
-          </i>
-        )}
+    <div className="flex flex-col mb-4 field-input">
+      <div className="relative">
         <input
           type={showPassword ? 'text' : type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          className="px-3 py-2 pr-10"
         />
+        {type === 'password' && (
+          <button 
+            type="button" 
+            onClick={togglePasswordVisibility} 
+           className="absolute inset-y-0 right-0 flex items-center text-gray-600 view-password"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        )}
       </div>
     </div>
-  );
+  );  
 };
 
 export default FormInput;
