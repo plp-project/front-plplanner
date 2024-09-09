@@ -6,22 +6,24 @@ const TaskContext = createContext();
 export const useTask = () => useContext(TaskContext);
 
 
-export const TaskProvider = ({ children}) => {
-    const [taskName, setTaskName] = useState("")
+export const TaskProvider = ({ children }) => {
+    const [taskName, setTaskName] = useState("");
     const [tasks, setTasks] = useState([]);
 
-    async function getAllTasks() {
-        return await TaskService.findAll();
-    }
-
-    const addTask = () => {
+    const addTask = (day, month, year) => {
         if (taskName.trim()) {
-            const name = taskName;
-            setTasks([...tasks, { id: tasks.length + 1, name }]);
+            const newTask = {
+                id: tasks.length + 1,
+                name: taskName,
+                day,
+                month,
+                year
+            };
+            setTasks([...tasks, newTask]);
             setTaskName('');
         }
-      };
-    
+    };
+
     return (
         <TaskContext.Provider value={{ tasks, setTasks, addTask, taskName, setTaskName }}>
             {children}

@@ -1,35 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronRight, ChevronLeft, Plus } from "react-feather";
 import Categoria from "./Categoria";
 import { SketchPicker } from "react-color";
 import { useAuth } from '../../contexts/AuthContext';
+import CategoriaService from '../../services/CategoriaService';
+import { useCategory } from "../../contexts/CategoryContext";
 
 const Sidebar = () => {
   
   const { user } = useAuth();
-  
-  
-  const [categorias, setCategorias] = React.useState([
-    { nome: "Categoria 1", cor: "#f87171" },
-    { nome: "Categoria 2", cor: "#34d399" },
-    { nome: "Categoria 3", cor: "#fbbf24" },
-    { nome: "Categoria 4", cor: "#facc15" },
-  ]);
+  const {categories, setCategories} = useCategory();
   const [collapsed, setCollapsed] = React.useState(false);
   const [novoNome, setNovoNome] = React.useState("");
   const [corSelecionada, setCorSelecionada] = React.useState("#ffffff");
   const [showForm, setShowForm] = React.useState(false);
 
-  const adicionarCategoria = () => {
+  const adicionarCategoria = async () => {
     if (novoNome && corSelecionada) {
+      const categoriaExistente = categories.find(cat => cat.nome === novoNome);
+      if (categoriaExistente) {
+        alert("Já existe uma categoria com esse nome.");
+        return;
+      }
+
       const novaCategoria = {
-        nome: novoNome,
-        cor: corSelecionada,
+        name: novoNome,
+        color: corSelecionada,
       };
-      setCategorias([...categorias, novaCategoria]);
-      setNovoNome("");
-      setCorSelecionada("#ffffff");
-      setShowForm(false);
+
+      try {
+        const response = await CategoriaService.create(novaCategoria);
+        console.log("Adicionar Categoria", response);
+        setCategories([...categories, response.data]);
+        setNovoNome("");
+        setCorSelecionada("#ffffff");
+        setShowForm(false);
+      } catch (error) {
+        console.error('Erro ao adicionar categoria:', error);
+      }
     } else {
       alert("Preencha o nome e selecione a cor da categoria.");
     }
@@ -107,13 +115,9 @@ const Sidebar = () => {
             </div>
           )}
 
-          <ul>
-            {categorias.map((categoria, index) => (
-              <Categoria
-                key={index}
-                nome={categoria.nome}
-                cor={categoria.cor}
-              />
+<ul>
+            {categories && categories.map((categoria, index) => (
+              <Categoria key={index} categoriaId={categoria.id} nome={categoria.name} cor={categoria.color} />
             ))}
           </ul>
         </div>
