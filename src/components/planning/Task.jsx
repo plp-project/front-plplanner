@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Edit2, Trash2 } from "react-feather";
 import { useTask } from "../../contexts/TaskContext";
 
-const Task = ({ task, day, month, year }) => {
+const Task = ({ key, task, day, month, year }) => {
 	const [editingTask, setEditingTask] = useState(null);
 	const [editName, setEditName] = useState("");
 	const { removeTask, updateTask } = useTask();
@@ -12,9 +12,10 @@ const Task = ({ task, day, month, year }) => {
 		setEditName(task.name);
 	};
 
-	const handleDeleteTask = async (taskId) => {
+	const handleDeleteTask = async () => {
+		console.log(task);
 		const planningDate = new Date(year, month - 1, day);
-		await removeTask(planningDate, taskId);
+		await removeTask(planningDate, task.id);
 	};
 
 	const handleSaveEdit = async () => {
@@ -51,7 +52,7 @@ const Task = ({ task, day, month, year }) => {
 					</span>
 					<span>
 						<button
-							onClick={() => handleDeleteTask(task.id)}
+							onClick={() => handleDeleteTask()}
 							className="hover:bg-gray-600 p-1 rounded-sm"
 						>
 							<Trash2 size={16}></Trash2>

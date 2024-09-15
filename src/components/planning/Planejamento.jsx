@@ -43,7 +43,7 @@ const Planejamento = ({ month, year }) => {
 							filteredPlanning.tasks &&
 							filteredPlanning.tasks.map((task) => (
 								<Task
-									key={task.id}
+									key={`${task.description}#${task.id}`}
 									task={task}
 									day={day}
 									month={month}

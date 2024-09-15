@@ -18,43 +18,27 @@ export const TaskProvider = ({ children }) => {
 	const [taskName, setTaskName] = useState("");
 	const [tasks, setTasks] = useState([]);
 
-	const addTask = async (date) => {
-		console.log("date: ", date);
+	async function addTask(date) {
 		const newTask = {
 			description: taskName,
 			duration: "30m",
 			categoryId: 1,
 		};
 		let planning = getPlanningByDate(date);
-		console.log("planning", planning);
-		if (planning) {
-			addTaskToPlan(planning, newTask);
-		} else {
-			await createPlanning(date, newTask);
-		}
-	};
-
+		if (planning) addTaskToPlan(planning, newTask);
+		else await createPlanning(date, newTask);
+	}
 	async function removeTask(planningDate, taskId) {
 		const data = await TaskService.delete(taskId);
-
-		if (!data || data.errors) {
-			toast.error("Algo deu errado!");
-			console.log(data.errors);
-		}
-
+		if (!data || data.errors) return toast.error("Algo deu errado!");
 		removeTaskFromPlan(planningDate, taskId);
 		toast.success("Task removida!");
 	}
-
 	async function updateTask(planningDate, editingTask) {
 		const data = await TaskService.update(editingTask);
-		if (!data || data.errors) {
-			toast.error("Algo deu errado!");
-			console.log(data.errors);
-		}
+		if (!data || data.errors) return toast.error("Algo deu errado!");
 		updateTaskFromPlan(planningDate, editingTask);
 	}
-
 	return (
 		<TaskContext.Provider
 			value={{

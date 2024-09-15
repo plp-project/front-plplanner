@@ -37,14 +37,11 @@ export const PlanningProvider = ({ children }) => {
 
 	async function addTaskToPlan(planning, newTask) {
 		const data = await TaskService.create(planning.id, newTask);
-
 		if (!data || data.errors) return handleTaskErrors(data.errors);
-
 		const newPlan = {
 			...planning,
-			tasks: [...planning.tasks, newTask],
+			tasks: [...planning.tasks, { id: data.id, ...newTask }],
 		};
-
 		setPlannings((oldPlannings) => {
 			return oldPlannings.map((p) => (p.id === newPlan.id ? newPlan : p));
 		});
@@ -78,7 +75,6 @@ export const PlanningProvider = ({ children }) => {
 
 	async function createPlanning(date, newTask) {
 		const newPlanning = await PlanningService.create(date, [newTask]);
-
 		if (newPlanning.errors) return;
 		setPlannings((oldPlannings) => [...oldPlannings, newPlanning]);
 	}
@@ -91,8 +87,6 @@ export const PlanningProvider = ({ children }) => {
 		};
 		fetchPlanning();
 	}, []);
-
-	console.log("Plannings: ", plannings);
 
 	return (
 		<PlanningContext.Provider
