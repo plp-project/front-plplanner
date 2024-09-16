@@ -32,7 +32,7 @@ const Planejamento = ({ month, year }) => {
 						boxShadow: `0px 4px 4px 0px rgba(0, 0, 0, 0.25)`,
 					}}
 				>
-					<div className="list-body flex flex-col gap-2">
+					<div className="list-body flex flex-col gap-3">
 						<div className="flex justify-between p-1">
 							<span>{`${formattedDay}/${String(month).padStart(
 								2,

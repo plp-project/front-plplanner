@@ -18,16 +18,21 @@ export const TaskProvider = ({ children }) => {
 	const [taskName, setTaskName] = useState("");
 	const [tasks, setTasks] = useState([]);
 
-	async function addTask(date) {
+	async function addTask(date, taskName, duration, category) {
 		const newTask = {
-			description: taskName,
-			duration: "30m",
-			categoryId: 1,
+		  description: taskName,
+		  duration: duration,
+		  categoryId: category.id,
 		};
+		
 		let planning = getPlanningByDate(date);
-		if (planning) addTaskToPlan(planning, newTask);
-		else await createPlanning(date, newTask);
-	}
+		if (planning) {
+		  addTaskToPlan(planning, newTask);
+		} else {
+		  await createPlanning(date, newTask);
+		}
+	  }
+	  
 	async function removeTask(planningDate, taskId) {
 		const data = await TaskService.delete(taskId);
 		if (!data || data.errors) return toast.error("Algo deu errado!");
