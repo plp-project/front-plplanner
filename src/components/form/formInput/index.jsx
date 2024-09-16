@@ -3,7 +3,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './styles.css';
 
 const FormInput = ({
-  label,
   type,
   placeholder,
   value,

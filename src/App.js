@@ -1,3 +1,4 @@
+// App.js
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -5,9 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Slide, ToastContainer } from "react-toastify";
 
-import Login from './pages/login'
+import Login from './pages/login';
 import HomePage from './pages/home';
 import Register from './pages/register';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   return (
@@ -26,16 +28,25 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          
-          <Route element={<Navigate to="/login" />} path="/" />
-          <Route element={<Navigate to="/login" />} path="/sair" />
-          <Route element={<Login />} path="/login" />
-          <Route element={<HomePage />} path="/home" />
-          <Route element={<Navigate to="/home" />} path="/" />
-          
-          
-          <Route element={<Navigate to="/" />} path="/" />
-          <Route element={<Register />} path="/cadastro" />
+          <Route path="/login" element={
+            <ProtectedRoute>
+              <Login />
+            </ProtectedRoute>
+          } />
+          <Route path="/cadastro" element={
+            <ProtectedRoute>
+              <Register />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/home" element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/sair" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </>

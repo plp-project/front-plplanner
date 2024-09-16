@@ -4,6 +4,10 @@
   padding-right: 2px;
 }
 
+.field-input input {
+  width: 490px;
+}
+
 .field-input input:active,
 .field-input input:focus {
   outline: 0;
