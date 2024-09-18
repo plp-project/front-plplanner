@@ -8,15 +8,13 @@ import Modal from "./Modal";
 const NewTask = ({ day, month, year }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { taskName, setTaskName, addTask } = useTask();
-  const { categories } = useCategory(); 
-  const [duration, setDuration] = useState("30m"); 
-  const [selectedCategory, setSelectedCategory] = useState(null); 
+  const { categories } = useCategory();
+  const [duration, setDuration] = useState("30m");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
- 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  
   const handleShowAndAddTask = () => {
     taskName.trim();
 
@@ -39,9 +37,8 @@ const NewTask = ({ day, month, year }) => {
 
     const planningDate = new Date(year, month - 1, day);
 
-    
     addTask(planningDate, taskName, duration, selectedCategory);
-    
+
     setTaskName("");
     setDuration("");
     setSelectedCategory(null);
@@ -61,18 +58,17 @@ const NewTask = ({ day, month, year }) => {
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="flex flex-col gap-3">
-
           <div className="mt-2 ">
-          <label className="block text-xs text-left">Categoria</label>
-          <input
-            type="text"
-            value={taskName}
-            onChange={(e) => setTaskName(e.target.value)}
-            placeholder="Nome da Task"
-            className="p-1 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
-          />
+            <label className="block text-xs text-left">Categoria</label>
+            <input
+              type="text"
+              value={taskName}
+              onChange={(e) => setTaskName(e.target.value)}
+              placeholder="Nome da Task"
+              className="p-1 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
+            />
           </div>
-          
+
           <div className="mt-2 ">
             <label className="text-xs block text-left">Duração</label>
             <select
@@ -82,17 +78,20 @@ const NewTask = ({ day, month, year }) => {
             >
               <option value="30m">30 minutos</option>
               <option value="1h">1 hora</option>
-              <option value="2h">2 horas</option>
+              <option value="morning">Manhã</option>
+              <option value="afternoon">Tarde</option>
+              <option value="night">Noite</option>
             </select>
           </div>
 
-          
           <div className="mt-2">
             <label className="block text-xs text-left">Categoria</label>
             <select
               value={selectedCategory?.id || ""}
               onChange={(e) =>
-                setSelectedCategory(categories.find((cat) => cat.id === Number(e.target.value)))
+                setSelectedCategory(
+                  categories.find((cat) => cat.id === Number(e.target.value))
+                )
               }
               className="p-2 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
             >
