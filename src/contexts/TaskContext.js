@@ -15,24 +15,24 @@ export const TaskProvider = ({ children }) => {
 		removeTaskFromPlan,
 		updateTaskFromPlan,
 	} = usePlanning();
-	const [taskName, setTaskName] = useState("");
+	const [taskDescription, setTaskDescription] = useState("");
 	const [tasks, setTasks] = useState([]);
 
-	async function addTask(date, taskName, duration, category) {
+	async function addTask(date, taskDescription, duration, category) {
 		const newTask = {
-		  description: taskName,
-		  duration: duration,
-		  categoryId: category.id,
+			description: taskDescription,
+			duration: duration,
+			categoryId: category.id,
 		};
-		
+
 		let planning = getPlanningByDate(date);
 		if (planning) {
-		  addTaskToPlan(planning, newTask);
+			addTaskToPlan(planning, newTask);
 		} else {
-		  await createPlanning(date, newTask);
+			await createPlanning(date, newTask);
 		}
-	  }
-	  
+	}
+
 	async function removeTask(planningDate, taskId) {
 		const data = await TaskService.delete(taskId);
 		if (!data || data.errors) return toast.error("Algo deu errado!");
@@ -50,8 +50,8 @@ export const TaskProvider = ({ children }) => {
 				tasks,
 				setTasks,
 				addTask,
-				taskName,
-				setTaskName,
+				taskDescription,
+				setTaskDescription,
 				removeTask,
 				updateTask,
 			}}

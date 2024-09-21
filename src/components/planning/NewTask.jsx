@@ -7,7 +7,7 @@ import Modal from "./Modal";
 
 const NewTask = ({ day, month, year }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { taskName, setTaskName, addTask } = useTask();
+  const { taskDescription, setTaskDescription, addTask } = useTask();
   const { categories } = useCategory();
   const [duration, setDuration] = useState("30m");
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -16,14 +16,14 @@ const NewTask = ({ day, month, year }) => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleShowAndAddTask = () => {
-    taskName.trim();
+    taskDescription.trim();
 
-    if (!taskName) {
+    if (!taskDescription) {
       return toast.info("Preencha o nome da task.", {
         autoClose: 1500,
       });
     }
-    if (taskName.length < 5) {
+    if (taskDescription.length < 5) {
       return toast.info("O nome da task deve ter mais de 5 caracteres.", {
         autoClose: 1500,
       });
@@ -37,9 +37,9 @@ const NewTask = ({ day, month, year }) => {
 
     const planningDate = new Date(year, month - 1, day);
 
-    addTask(planningDate, taskName, duration, selectedCategory);
+    addTask(planningDate, taskDescription, duration, selectedCategory);
 
-    setTaskName("");
+    setTaskDescription("");
     setDuration("");
     setSelectedCategory(null);
     setIsModalOpen(false);
@@ -47,10 +47,7 @@ const NewTask = ({ day, month, year }) => {
 
   return (
     <div>
-      <button
-        onClick={openModal}
-        className="flex w-full justify-center items-center gap-3 mt-3"
-      >
+      <button onClick={openModal} className="flex w-full justify-center items-center gap-3 mt-3">
         <Plus size={16} />
         Nova Task
       </button>
@@ -58,12 +55,12 @@ const NewTask = ({ day, month, year }) => {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="flex flex-col gap-3">
           <div className="mt-2 ">
-            <label className="block text-xs text-left">Categoria</label>
+            <label className="block text-xs text-left">Descrição</label>
             <input
               type="text"
-              value={taskName}
-              onChange={(e) => setTaskName(e.target.value)}
-              placeholder="Nome da Task"
+              value={taskDescription}
+              onChange={(e) => setTaskDescription(e.target.value)}
+              placeholder="Insira a descrição"
               className="p-1 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
             />
           </div>
@@ -87,11 +84,7 @@ const NewTask = ({ day, month, year }) => {
             <label className="block text-xs text-left">Categoria</label>
             <select
               value={selectedCategory?.id || ""}
-              onChange={(e) =>
-                setSelectedCategory(
-                  categories.find((cat) => cat.id === Number(e.target.value))
-                )
-              }
+              onChange={(e) => setSelectedCategory(categories.find((cat) => cat.id === Number(e.target.value)))}
               className="p-2 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
             >
               <option value="">Selecione uma categoria</option>
@@ -105,10 +98,7 @@ const NewTask = ({ day, month, year }) => {
 
           {/* Botão de criar task */}
           <div className="flex p-1 mt-2">
-            <button
-              onClick={handleShowAndAddTask}
-              className="p-2 rounded bg-[#00585E] text-white mr-2"
-            >
+            <button onClick={handleShowAndAddTask} className="p-2 rounded bg-[#00585E] text-white mr-2">
               Criar task
             </button>
           </div>
