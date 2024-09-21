@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Edit2, Trash2 } from "react-feather";
 import { useTask } from "../../contexts/TaskContext";
 import { useCategory } from "../../contexts/CategoryContext";
@@ -47,30 +47,28 @@ const Task = ({ task, day, month, year }) => {
           style={{ boxShadow: `0px 7px 0px 0px rgba(0, 0, 0, 0.15)` }}
         >
           <div className="flex flex-col">
-          <span
-            onClick={() => setIsCategoryMinimized(!isCategoryMinimized)} 
-            className="px-2 py-1 rounded-md cursor-pointer"
-            style={{
-              backgroundColor: category ? category.color : "#ccc",
-              width: isCategoryMinimized ? "40px" : "auto", 
-              height: "auto", 
-              display: "inline-block",
-              textAlign: "center",
-              overflow: "hidden", 
-              whiteSpace: "nowrap", 
-            }}
-          >
-            {!isCategoryMinimized && (category ? category.name : "Sem categoria")}
-          </span>
-		  
-		  <span>{task.description}</span>
+            <span
+              onClick={() => setIsCategoryMinimized(!isCategoryMinimized)}
+              className="px-2 py-1 rounded-md cursor-pointer"
+              style={{
+                backgroundColor: category ? category.color : "#ccc",
+                width: isCategoryMinimized ? "40px" : "auto",
+                height: "auto",
+                display: "inline-block",
+                textAlign: "center",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {!isCategoryMinimized &&
+                (category ? category.name : "Sem categoria")}
+            </span>
 
-    
-         
-          <span>{task.duration}</span>
+            <span>{task.description}</span>
 
-		  </div>
-		  
+            <span>{task.duration}</span>
+          </div>
+
           <span>
             <button
               onClick={() => handleEditClick(task)}

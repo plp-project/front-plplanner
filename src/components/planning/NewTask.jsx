@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X, Plus } from "react-feather";
+import { Plus } from "react-feather";
 import { useTask } from "../../contexts/TaskContext";
 import { useCategory } from "../../contexts/CategoryContext";
 import { toast } from "react-toastify";
@@ -55,7 +55,6 @@ const NewTask = ({ day, month, year }) => {
         Nova Task
       </button>
 
-      {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="flex flex-col gap-3">
           <div className="mt-2 ">

@@ -1,0 +1,15 @@
+.popover-content {
+  background-color: #e3e3e4;
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+.popover-header {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #000;
+}
+
+.color-picker {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr);
+}

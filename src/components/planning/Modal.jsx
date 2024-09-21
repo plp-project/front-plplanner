@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { ModalContainer, Overlay, CloseButton, Content } from '../styled/ModalTask';
+import React from "react";
+import {
+  ModalContainer,
+  Overlay,
+  CloseButton,
+  Content,
+} from "../styled/ModalTask";
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
