@@ -47,12 +47,12 @@ const Task = ({ task, day, month, year }) => {
 
     const updatedTask = {
       ...task,
-      status: "in_progress",
+      status: "partially_executed",
       remainingTime: timer,
     };
     const planningDate = new Date(year, month - 1, day);
     updateTask(planningDate, updatedTask);
-    setNewStatus("in_progress");
+    setNewStatus("partially_executed");
   };
 
   const finishTask = () => {
@@ -135,7 +135,7 @@ const Task = ({ task, day, month, year }) => {
         color = "bg-blue-500";
         label = "Em Aberto";
         break;
-      case "in_progress":
+      case "partially_executed":
         color = "bg-yellow-500";
         label = "Em Progresso";
         break;

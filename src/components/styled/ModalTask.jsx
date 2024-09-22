@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Overlay = styled.div`
   position: fixed;
@@ -22,7 +22,7 @@ export const ModalContainer = styled.div`
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-out;
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -37,13 +37,25 @@ export const ModalContainer = styled.div`
 
 export const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
 `;
+
+export const CloseIcon = () => (
+  <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+    />
+  </svg>
+);
 
 export const Content = styled.div`
   margin-top: 10px;
