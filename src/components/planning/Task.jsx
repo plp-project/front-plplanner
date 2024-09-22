@@ -157,11 +157,7 @@ const Task = ({ task, day, month, year }) => {
         color = "bg-gray-500";
         label = "Desconhecido";
     }
-    return (
-      <span className={`text-xs text-white py-1 px-2 rounded ${color}`}>
-        {label}
-      </span>
-    );
+    return <span className={`text-xs text-white py-1 px-2 rounded ${color}`}>{label}</span>;
   };
 
   return (
@@ -187,8 +183,7 @@ const Task = ({ task, day, month, year }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              {!isCategoryMinimized &&
-                (category ? category.name : "Sem categoria")}
+              {!isCategoryMinimized && (category ? category.name : "Sem categoria")}
             </span>
 
             {/* Descrição */}
@@ -216,18 +211,13 @@ const Task = ({ task, day, month, year }) => {
             {/* Botão de Play */}
             <button
               onClick={startTimer}
-              className={`hover:bg-gray-600 p-2 rounded-full ${
-                isRunning ? "disabled" : ""
-              }`}
+              className={`hover:bg-gray-600 p-2 rounded-full ${isRunning ? "disabled" : ""}`}
             >
               <Play size={16} />
             </button>
 
             {/* Botão de Deletar */}
-            <button
-              onClick={handleDeleteTask}
-              className="hover:bg-gray-600 p-2 rounded-full"
-            >
+            <button onClick={handleDeleteTask} className="hover:bg-gray-600 p-2 rounded-full">
               <Trash2 size={16} />
             </button>
           </div>
@@ -255,16 +245,10 @@ const Task = ({ task, day, month, year }) => {
             className="p-2 border rounded-md w-full"
           />
           <div className="flex gap-2 w-full justify-between">
-            <button
-              onClick={handleSaveEdit}
-              className="p-2 bg-blue-500 text-white rounded-md w-full"
-            >
+            <button onClick={handleSaveEdit} className="p-2 bg-blue-500 text-white rounded-md w-full">
               Save
             </button>
-            <button
-              onClick={handleCancelEdit}
-              className="p-2 bg-red-500 text-white rounded-md w-full"
-            >
+            <button onClick={handleCancelEdit} className="p-2 bg-red-500 text-white rounded-md w-full">
               Cancel
             </button>
           </div>

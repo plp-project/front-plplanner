@@ -11,6 +11,10 @@ const errorsMsgs = {
 export const mapErrors = (errors, lang = "pt-br") => {
 	const messages = errorsMsgs[lang] || {};
 
+	if (!Array.isArray(errors.message)) {
+		return errors.message || messages.default;
+	}
+
 	return errors.message.map((error) => {
 		if (error.includes("duration")) {
 			return messages["duration"] || error;

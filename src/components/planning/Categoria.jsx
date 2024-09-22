@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useCategory } from "../../contexts/CategoryContext";
-import { Edit, Trash } from "react-feather";
+import { Trash } from "react-feather";
 import "./categoria.css";
+import CategoryPopover from "../categoryPopover";
 
 const Categoria = ({ categoriaId }) => {
-  const teste = useCategory();
-  console.log(teste);
-  const { categories, setSelectedCategory } = useCategory();
+  const { categories, deleteCategory } = useCategory();
   const categoria = categories.find((cat) => cat.id === categoriaId);
 
   useEffect(() => {
@@ -20,19 +19,18 @@ const Categoria = ({ categoriaId }) => {
     return null;
   }
 
+  const excluirCategoria = async (categoriaId) => {
+    const confirmDelete = window.confirm("Tem certeza que deseja excluir esta categoria?");
+    if (!confirmDelete) return;
+    deleteCategory(categoriaId);
+  };
+
   return (
     <li>
-      <button
-        className="items-center px-3 py-2 w-full text-sm flex justify-start align-baseline hover:bg-gray-500"
-        id="category-button"
-        onClick={() => setSelectedCategory(categoria)}
-      >
+      <div className="items-center px-3 py-2 w-full text-sm flex justify-start align-baseline hover:bg-gray-500 hover:bg-opacity-25">
         <div className="d-flex justify-between flex-1">
           <div className="d-flex">
-            <span
-              style={{ backgroundColor: categoria.color }}
-              className="w-6 h-6 rounded-sm mr-2"
-            >
+            <span style={{ backgroundColor: categoria.color }} className="w-6 h-6 rounded-sm mr-2">
               &nbsp;
             </span>
             <span>{categoria.name}</span>
@@ -40,14 +38,14 @@ const Categoria = ({ categoriaId }) => {
 
           <div className="d-flex actions-container">
             <button className="mr-2">
-              <Edit size={16} color={"#fff"} />
+              <CategoryPopover action="Editar" data={categoria} />
             </button>
-            <button>
+            <button onClick={() => excluirCategoria(categoria.id)} className="hover:bg-gray-400 p-1 rounded-sm">
               <Trash size={16} color={"#fff"} />
             </button>
           </div>
         </div>
-      </button>
+      </div>
     </li>
   );
 };

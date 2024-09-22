@@ -1,44 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getContrastingColor, hsvaToHex, Swatch } from "@uiw/react-color";
-import { Check, ChevronLeft, Plus } from "react-feather";
+import { Check, ChevronLeft, Edit, Plus } from "react-feather";
 import { Popover } from "react-tiny-popover";
-import CategoriaService from "../../services/CategoriaService";
 import { useCategory } from "../../contexts/CategoryContext";
+import { categoryColors } from "./categoryColors";
 import "./index.css";
+import { toast } from "react-toastify";
 
-function CategoryPopover() {
-  const [novoNome, setNovoNome] = useState("");
-  const { categories, setCategories } = useCategory();
-  const [corSelecionada, setCorSelecionada] = useState("#ffffff");
+function CategoryPopover({ action, data }) {
+  const { addCategory, updateCategory } = useCategory();
+  const [nomeCategoria, setNomeCategoria] = useState(data ? data.name : "");
+  const [corSelecionada, setCorSelecionada] = useState(data ? data.color : "#ffffff");
   const [showForm, setShowForm] = useState(false);
 
-  const adicionarCategoria = async () => {
-    if (novoNome && corSelecionada) {
-      const categoriaExistente = categories.find(
-        (cat) => cat.nome === novoNome
-      );
-      if (categoriaExistente) {
-        alert("Já existe uma categoria com esse nome.");
-        return;
-      }
+  useEffect(() => {
+    if (data && action === "Editar") {
+      setNomeCategoria(data.name);
+      setCorSelecionada(data.color);
+    }
+  }, [data, action]);
 
-      const novaCategoria = {
-        name: novoNome,
+  const salvarCategoria = async () => {
+    if (nomeCategoria && corSelecionada) {
+      const categoria = {
+        name: nomeCategoria,
         color: corSelecionada,
       };
 
-      try {
-        const response = await CategoriaService.create(novaCategoria);
-        console.log("Adicionar Categoria", response);
-        setCategories([...categories, response.data]);
-        setNovoNome("");
-        setCorSelecionada("#ffffff");
-        setShowForm(false);
-      } catch (error) {
-        console.error("Erro ao adicionar categoria:", error);
+      if (action === "Criar") {
+        addCategory(categoria);
       }
-    } else {
-      alert("Preencha o nome e selecione a cor da categoria.");
+      if (action === "Editar") {
+        updateCategory(data.id, categoria);
+      }
+
+      setNomeCategoria("");
+      setCorSelecionada("#ffffff");
+      setShowForm(false);
+    }
+    else {
+      toast.info("Preencha o nome e selecione a cor da categoria.");
     }
   };
 
@@ -50,14 +51,14 @@ function CategoryPopover() {
   return (
     <>
       <Popover
-        positions={"right"}
-        containerStyle={{ top: "10%" }}
+        positions={["right", "top"]}
+        containerStyle={{}}
         isOpen={showForm}
         onClickOutside={() => setShowForm(false)}
         content={({ position, childRect, popoverRect }) => (
-          <div className="popover-content">
-            <div className="popover-header px-3 pt-2 ">
-              <div className="d-flex justify-between items-center">
+          <div className="popover-content bg-gray-200 rounded-xl p-2 border-1 border-gray-300">
+            <div className="popover-header px-3 pt-2">
+              <div className="d-flex justify-between pb-2 items-center border-b border-gray-300">
                 <ChevronLeft
                   cursor={"pointer"}
                   size={16}
@@ -76,40 +77,30 @@ function CategoryPopover() {
                 <input
                   type="text"
                   placeholder="Título da Categoria"
-                  value={novoNome}
-                  onChange={(e) => setNovoNome(e.target.value)}
-                  className="mt-2 mb-2 p-1 w-full text-black text"
+                  value={nomeCategoria}
+                  onChange={(e) => setNomeCategoria(e.target.value)}
+                  className="my-2 py-1 px-2 w-full text-black outline-none hover:bg-gray-50 focus:border focus:border-gray-300"
                   style={{ borderRadius: "4px" }}
                 />
               </div>
-              <div className="mb-2">
+              <div className="my-1">
                 <label>
                   <p className="text-black">Escolha uma cor:</p>
                 </label>
                 <Swatch
-                  className="color-picker"
-                  colors={[
-                    "#F44E3B", // Coral Red
-                    "#FE9200", // Orange
-                    "#FCDC00", // Golden Yellow
-                    "#DBDF00", // Lime
-                    "#F4796B", // Soft Coral
-                    "#FFB800", // Amber
-                    "#FFF700", // Bright Yellow
-                    "#D1DF00", // Olive
-                    "#F26155", // Slightly Desaturated Coral
-                    "#FFAC3A", // Tangerine
-                  ]}
+                  className="color-picker mt-2"
+                  colors={categoryColors}
                   color={corSelecionada}
                   rectProps={{
                     children: <Point />,
                     style: {
-                      width: "50px",
+                      width: "40px",
                       height: "30px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                    },
+                      borderRadius: "5px"
+                    }
                   }}
                   onChange={(hsvColor) => {
                     setCorSelecionada(hsvaToHex(hsvColor));
@@ -118,10 +109,10 @@ function CategoryPopover() {
               </div>
               <div className="d-flex justify-center items-center">
                 <button
-                  onClick={adicionarCategoria}
+                  onClick={salvarCategoria}
                   className="flex-1 mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-sm"
                 >
-                  Criar
+                  {action}
                 </button>
               </div>
             </div>
@@ -130,13 +121,14 @@ function CategoryPopover() {
       >
         <button
           onClick={() => setShowForm(!showForm)}
-          className="hover:bg-slate-600 p-1 rounded-sm"
+          className="hover:bg-gray-400 p-1 rounded-sm"
         >
-          <Plus size={16} />
+          {action === "Criar" ? <Plus size={16} /> : <Edit size={16} color={"#fff"} />}
         </button>
       </Popover>
     </>
   );
 }
+
 
 export default CategoryPopover;

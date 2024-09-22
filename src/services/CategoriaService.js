@@ -25,7 +25,7 @@ const CategoriaService = {
 				"ID e dados da categoria são obrigatórios para atualizar."
 			);
 		}
-		return api.put(`/category/${id}`, categoria);
+		return api.patch(`/category/${id}`, categoria);
 	},
 
 	delete(id) {
