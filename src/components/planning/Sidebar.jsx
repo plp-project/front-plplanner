@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { ChevronRight, ChevronLeft, Home, BarChart, Map } from "react-feather";
+import {
+  ChevronRight,
+  ChevronLeft,
+  Home,
+  BarChart,
+  Map,
+  Mail,
+} from "react-feather";
 import Categoria from "./Categoria";
 import { useAuth } from "../../contexts/AuthContext";
 import { useCategory } from "../../contexts/CategoryContext";
 import { Link, useNavigate } from "react-router-dom";
 import { SlLogout } from "react-icons/sl";
 import CategoryPopover from "../categoryPopover";
+import "./sidebar.css";
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -22,6 +30,7 @@ const Sidebar = () => {
   const navigateButtons = [
     { component: Home, title: "Home", page: "/home" },
     { component: Map, title: "Metas", page: "/goals" },
+    { component: Mail, title: "Lembretes", page: "/reminds" },
     { component: BarChart, title: "Relatórios", page: "/reports" },
   ];
 

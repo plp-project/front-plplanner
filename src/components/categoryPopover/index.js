@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Circle } from "@uiw/react-color";
-import { ChevronLeft, Plus } from "react-feather";
+import React, { useState } from "react";
+import { getContrastingColor, hsvaToHex, Swatch } from "@uiw/react-color";
+import { Check, ChevronLeft, Plus } from "react-feather";
 import { Popover } from "react-tiny-popover";
 import CategoriaService from "../../services/CategoriaService";
 import { useCategory } from "../../contexts/CategoryContext";
@@ -42,12 +42,18 @@ function CategoryPopover() {
     }
   };
 
+  function Point({ color, checked }) {
+    if (!checked) return null;
+    return <Check size={12} color={getContrastingColor(color)} />;
+  }
+
   return (
     <>
       <Popover
         positions={"right"}
         containerStyle={{ top: "10%" }}
         isOpen={showForm}
+        onClickOutside={() => setShowForm(false)}
         content={({ position, childRect, popoverRect }) => (
           <div className="popover-content">
             <div className="popover-header px-3 pt-2 ">
@@ -80,7 +86,8 @@ function CategoryPopover() {
                 <label>
                   <p className="text-black">Escolha uma cor:</p>
                 </label>
-                <Circle
+                <Swatch
+                  className="color-picker"
                   colors={[
                     "#F44E3B", // Coral Red
                     "#FE9200", // Orange
@@ -93,15 +100,20 @@ function CategoryPopover() {
                     "#F26155", // Slightly Desaturated Coral
                     "#FFAC3A", // Tangerine
                   ]}
-                  pointProps={{
+                  color={corSelecionada}
+                  rectProps={{
+                    children: <Point />,
                     style: {
                       width: "50px",
                       height: "30px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     },
                   }}
-                  className="color-picker"
-                  color={corSelecionada}
-                  onChangeComplete={(color) => setCorSelecionada(color.hex)}
+                  onChange={(hsvColor) => {
+                    setCorSelecionada(hsvaToHex(hsvColor));
+                  }}
                 />
               </div>
               <div className="d-flex justify-center items-center">
