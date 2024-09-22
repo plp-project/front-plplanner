@@ -9,6 +9,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import Login from "./pages/login";
 import HomePage from "./pages/home";
 import Register from "./pages/register";
+import Reports from "./pages/reports";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
@@ -50,6 +51,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <HomePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute>
+                <Reports />
               </ProtectedRoute>
             }
           />
