@@ -1,17 +1,103 @@
-import React, { useState } from "react";
-import { Edit2, Trash2 } from "react-feather";
+import React, { useState, useEffect } from "react";
+import { Edit2, Trash2, Play, CheckCircle, Clock } from "react-feather";
 import { useTask } from "../../contexts/TaskContext";
 import { useCategory } from "../../contexts/CategoryContext";
+import FloatingTimer from "./FloatingTimer";
 
 const Task = ({ task, day, month, year }) => {
   const [editingTask, setEditingTask] = useState(null);
   const [editName, setEditName] = useState("");
+  const [timer, setTimer] = useState(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [showFloatingTimer, setShowFloatingTimer] = useState(false);
+  const [newStatus, setNewStatus] = useState(task.status);
   const { removeTask, updateTask } = useTask();
-  const { categories } = useCategory(); // Pega as categorias disponíveis
+  const { categories } = useCategory();
 
-  const [isCategoryMinimized, setIsCategoryMinimized] = useState(false);
-  // Encontra a categoria associada à task pelo categoryId
+  const [isCategoryMinimized, setIsCategoryMinimized] = useState(true);
   const category = categories.find((cat) => cat.id === task.categoryId);
+
+  const getInitialDuration = () => {
+    if (task.duration === "30m") {
+      return 30 * 60;
+    } else if (task.duration === "1h") {
+      return 60 * 60;
+    } else {
+      const now = new Date();
+      const currentHour = now.getHours();
+
+      if (task.duration === "morning") {
+        return (12 - currentHour) * 60 * 60;
+      } else if (task.duration === "afternoon") {
+        return (18 - currentHour) * 60 * 60;
+      } else if (task.duration === "night") {
+        return (24 - currentHour) * 60 * 60;
+      }
+    }
+  };
+
+  const startTimer = () => {
+    setIsRunning(true);
+    setShowFloatingTimer(true);
+
+    // Se a tarefa for "concluída", resetar o timer
+    if (newStatus === "executed") {
+      setTimer(getInitialDuration());
+    }
+
+    const updatedTask = {
+      ...task,
+      status: "in_progress",
+      remainingTime: timer,
+    };
+    const planningDate = new Date(year, month - 1, day);
+    updateTask(planningDate, updatedTask);
+    setNewStatus("in_progress");
+  };
+
+  const finishTask = () => {
+    setIsRunning(false);
+    setShowFloatingTimer(false);
+    setNewStatus("executed");
+
+    const updatedTask = { ...task, status: "executed" };
+    const planningDate = new Date(year, month - 1, day);
+    updateTask(planningDate, updatedTask);
+  };
+
+  const postponeTask = () => {
+    setIsRunning(false);
+    setShowFloatingTimer(false);
+    setNewStatus("postponed");
+
+    const updatedTask = { ...task, status: "postponed", remainingTime: timer }; // Salva o tempo restante
+    const planningDate = new Date(year, month - 1, day);
+    updateTask(planningDate, updatedTask);
+  };
+
+  const resetTask = () => {
+    setIsRunning(false);
+    setShowFloatingTimer(false);
+    setNewStatus("todo");
+
+    const updatedTask = { ...task, status: "todo" };
+    const planningDate = new Date(year, month - 1, day);
+    updateTask(planningDate, updatedTask);
+  };
+
+  useEffect(() => {
+    let interval;
+    if (isRunning && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(interval);
+      finishTask();
+    }
+
+    return () => clearInterval(interval);
+  }, [isRunning, timer]);
 
   const handleEditClick = (task) => {
     setEditingTask(task);
@@ -38,15 +124,50 @@ const Task = ({ task, day, month, year }) => {
     setEditName("");
   };
 
+  const closeFloatingTimer = () => {
+    resetTask();
+  };
+
+  const getStatusBadge = (status) => {
+    let color, label;
+    switch (status) {
+      case "todo":
+        color = "bg-blue-500";
+        label = "Em Aberto";
+        break;
+      case "in_progress":
+        color = "bg-yellow-500";
+        label = "Em Progresso";
+        break;
+      case "executed":
+        color = "bg-green-500";
+        label = "Concluída";
+        break;
+      case "postponed":
+        color = "bg-orange-500";
+        label = "Adiada";
+        break;
+      default:
+        color = "bg-gray-500";
+        label = "Desconhecido";
+    }
+    return (
+      <span className={`text-xs text-white py-1 px-2 rounded ${color}`}>
+        {label}
+      </span>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3">
         <div
           key={task.id}
-          className="flex justify-between items-center bg-white p-2 cursor-pointer rounded-lg hover:border-gray-500"
+          className="flex justify-between items-center bg-white p-3 cursor-pointer rounded-lg hover:border-gray-500"
           style={{ boxShadow: `0px 7px 0px 0px rgba(0, 0, 0, 0.15)` }}
         >
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1">
+            {/* Categoria */}
             <span
               onClick={() => setIsCategoryMinimized(!isCategoryMinimized)}
               className="px-2 py-1 rounded-md cursor-pointer"
@@ -64,30 +185,52 @@ const Task = ({ task, day, month, year }) => {
                 (category ? category.name : "Sem categoria")}
             </span>
 
-            <span>{task.description}</span>
+            {/* Descrição */}
+            <span className="text-lg font-semibold">{task.description}</span>
 
-            <span>{task.duration}</span>
+            {/* Duração */}
+            <span className="text-sm text-gray-500 gap-1 flex items-center">
+              <Clock size={14} /> {task.duration}
+            </span>
+
+            {/* Status */}
+            <div className="mt-1">{getStatusBadge(newStatus)}</div>
           </div>
 
-          <span>
+          <div className="flex gap-1">
+            {/* Botão de Play */}
             <button
-              onClick={() => handleEditClick(task)}
-              className="hover:bg-gray-600 p-1 rounded-sm"
+              onClick={startTimer}
+              className={`hover:bg-gray-600 p-2 rounded-full ${
+                isRunning ? "disabled" : ""
+              }`}
             >
-              <Edit2 size={16} />
+              <Play size={16} />
             </button>
-          </span>
-          <span>
+
+            {/* Botão de Deletar */}
             <button
               onClick={handleDeleteTask}
-              className="hover:bg-gray-600 p-1 rounded-sm"
+              className="hover:bg-gray-600 p-2 rounded-full"
             >
               <Trash2 size={16} />
             </button>
-          </span>
+          </div>
         </div>
       </div>
 
+      {/* Timer Flutuante */}
+      {showFloatingTimer && (
+        <FloatingTimer
+          time={timer}
+          totalDuration={task.durationInSeconds}
+          onClose={closeFloatingTimer}
+          onFinishTask={finishTask}
+          onPostponeTask={postponeTask}
+        />
+      )}
+
+      {/* Editar Task */}
       {editingTask && (
         <div className="flex flex-col gap-2 p-2 border rounded-lg bg-gray-100">
           <input

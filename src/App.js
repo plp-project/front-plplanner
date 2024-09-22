@@ -10,7 +10,6 @@ import Login from "./pages/login";
 import HomePage from "./pages/home";
 import Register from "./pages/register";
 import ProtectedRoute from "./ProtectedRoute";
-import Reports from "./pages/reports";
 
 function App() {
   return (
@@ -51,15 +50,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <HomePage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/reports"
-            element={
-              <ProtectedRoute>
-                <Reports />
               </ProtectedRoute>
             }
           />
