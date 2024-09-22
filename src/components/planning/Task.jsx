@@ -17,6 +17,7 @@ const Task = ({ task, day, month, year }) => {
   const [isCategoryMinimized, setIsCategoryMinimized] = useState(true);
   const category = categories.find((cat) => cat.id === task.categoryId);
 
+  // Função para definir o tempo inicial com base na duração da tarefa
   const getInitialDuration = () => {
     if (task.duration === "30m") {
       return 30 * 60;
@@ -25,7 +26,6 @@ const Task = ({ task, day, month, year }) => {
     } else {
       const now = new Date();
       const currentHour = now.getHours();
-
       if (task.duration === "morning") {
         return (12 - currentHour) * 60 * 60;
       } else if (task.duration === "afternoon") {
@@ -37,19 +37,25 @@ const Task = ({ task, day, month, year }) => {
   };
 
   const startTimer = () => {
+    if (isRunning) return;
     setIsRunning(true);
     setShowFloatingTimer(true);
 
-    // Se a tarefa for "concluída", resetar o timer
-    if (newStatus === "executed") {
-      setTimer(getInitialDuration());
+    let durationInSeconds = timer;
+
+    // Se a tarefa foi cancelada, reinicia o timer com a duração total
+    if (newStatus === "todo" || newStatus === "executed") {
+      durationInSeconds = getInitialDuration();
     }
 
-    const updatedTask = {
-      ...task,
-      status: "partially_executed",
-      remainingTime: timer,
-    };
+    // Caso contrário, se a tarefa foi adiada, continua de onde parou
+    if (!durationInSeconds) {
+      durationInSeconds = getInitialDuration();
+    }
+
+    setTimer(durationInSeconds);
+
+    const updatedTask = { ...task, status: "partially_executed" };
     const planningDate = new Date(year, month - 1, day);
     updateTask(planningDate, updatedTask);
     setNewStatus("partially_executed");
@@ -170,7 +176,7 @@ const Task = ({ task, day, month, year }) => {
             {/* Categoria */}
             <span
               onClick={() => setIsCategoryMinimized(!isCategoryMinimized)}
-              className="px-2 py-1 rounded-md cursor-pointer"
+              className="px-2 py-1 rounded-md cursor-pointer text-xs text-white"
               style={{
                 backgroundColor: category ? category.color : "#ccc",
                 width: isCategoryMinimized ? "40px" : "auto",
@@ -186,7 +192,16 @@ const Task = ({ task, day, month, year }) => {
             </span>
 
             {/* Descrição */}
-            <span className="text-lg font-semibold">{task.description}</span>
+            <span
+              className="font-semibold break-words"
+              style={{
+                fontSize: task.description.length > 20 ? "14px" : "16px", // diminui a fonte se passar de 50 caracteres
+                wordBreak: "break-word", // permite quebra de linha
+                whiteSpace: "normal", // mantém as quebras de linha naturais
+              }}
+            >
+              {task.description}
+            </span>
 
             {/* Duração */}
             <span className="text-sm text-gray-500 gap-1 flex items-center">
@@ -223,7 +238,7 @@ const Task = ({ task, day, month, year }) => {
       {showFloatingTimer && (
         <FloatingTimer
           time={timer}
-          totalDuration={task.durationInSeconds}
+          totalDuration={getInitialDuration()}
           onClose={closeFloatingTimer}
           onFinishTask={finishTask}
           onPostponeTask={postponeTask}
