@@ -54,6 +54,9 @@ const NewTask = ({ day, month, year }) => {
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="flex flex-col gap-3">
+          <div class="border-b pb-3">
+            <h3 class="text-xl font-medium">Nova Task</h3>
+          </div>
           <div className="mt-2 ">
             <label className="block text-xs text-left">Descrição</label>
             <input
