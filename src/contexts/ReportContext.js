@@ -13,36 +13,36 @@ export const ReportProvider = ({ children }) => {
 
   const taskCategories = report
     ? report.tasks.categories.mostFinished.map(({ category, count }) => ({
-      name: category.name,
-      color: category.color,
-      value: count,
-      quantity: count,
-    }))
+        name: category.name,
+        color: category.color,
+        value: count,
+        quantity: count,
+      }))
     : [];
 
   const goalCategories = report
     ? report.goals.categories.mostFinished.map(({ category, count }) => ({
-      name: category.name,
-      color: category.color,
-      value: count,
-      quantity: count,
-    }))
+        name: category.name,
+        color: category.color,
+        value: count,
+        quantity: count,
+      }))
     : [];
 
   const mostProductiveMonths = report
     ? report.mostProductive.months.map((month) => ({
-      name: month.month,
-      value: Number(month ? month.count : 0),
-    }))
+        name: month.month,
+        value: Number(month ? month.count : 0),
+      }))
     : [];
 
   const mostProductiveWeeks = report
     ? report.mostProductive.weeks.map(({ count, week }) => ({
-      name: week.weekOfYear,
-      weekStart: week.start,
-      weekEnd: week.end,
-      value: Number(count),
-    }))
+        name: week.weekOfYear,
+        weekStart: week.start,
+        weekEnd: week.end,
+        value: Number(count),
+      }))
     : [];
 
   const defaultShifts = [
@@ -55,17 +55,17 @@ export const ReportProvider = ({ children }) => {
 
   let shiftsMostProductive = report
     ? defaultShifts.map((defaultShift) => {
-      const foundShift = report.mostProductive.shifts.find(
-        (shift) => shift.shift === defaultShift.shift
-      );
-      return {
-        ...defaultShift,
-        count: foundShift ? foundShift.count : 0,
-        percentage: Math.ceil(
-          (foundShift ? foundShift.count / report.tasks.all : 0) * 100
-        ),
-      };
-    })
+        const foundShift = report.mostProductive.shifts.find(
+          (shift) => shift.shift === defaultShift.shift
+        );
+        return {
+          ...defaultShift,
+          count: foundShift ? foundShift.count : 0,
+          percentage: Number(
+            (foundShift ? foundShift.count / report.tasks.all : 0) * 100
+          ).toFixed(2),
+        };
+      })
     : defaultShifts;
 
   shiftsMostProductive.sort((a, b) => b.count - a.count);

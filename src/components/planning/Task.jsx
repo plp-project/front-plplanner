@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Edit2, x, Trash2, Play, CheckCircle, Clock, X } from "react-feather";
+import { Edit2, Trash2, Play, Clock, X } from "react-feather";
 import { useTask } from "../../contexts/TaskContext";
 import { useCategory } from "../../contexts/CategoryContext";
 import FloatingTimer from "./FloatingTimer";
@@ -168,6 +168,10 @@ const Task = ({ task, day, month, year }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setEditName("Rafaaaaaaaaaaa");
+    setEditDescription("");
+    setEditDuration("");
+    setEditCategoryId("");
   };
 
   const getStatusBadge = (status) => {
@@ -259,7 +263,7 @@ const Task = ({ task, day, month, year }) => {
                 e.stopPropagation();
                 startTimer();
               }}
-              className={`hover:bg-gray-600 p-2 rounded-full ${
+              className={`hover:bg-[#00585E] p-2 rounded-full hover:text-white ${
                 isRunning ? "disabled" : ""
               }`}
             >
@@ -272,7 +276,7 @@ const Task = ({ task, day, month, year }) => {
                 e.stopPropagation();
                 handleDeleteTask();
               }}
-              className="hover:bg-gray-600 p-2 rounded-full"
+              className="hover:bg-[#00585E] p-2 rounded-full hover:text-white"
             >
               <Trash2 size={16} />
             </button>

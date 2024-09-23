@@ -1,6 +1,6 @@
 import Header from "../../components/planning/Header";
 import Sidebar from "../../components/planning/Sidebar";
-import ReminderMain from "../../components/reminder/ReminderMain";
+import ReminderMain from "../../components/Reminder/ReminderMain";
 import "./styles.css";
 
 const Reminder = () => {
