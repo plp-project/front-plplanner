@@ -12,9 +12,10 @@ export const GoalProvider = ({ children }) => {
 
   async function fetchGoals() {
     try {
-      const data = await GoalService.findAll();
+      const data = await GoalService.getAllByUser(); 
       setGoals(data);
     } catch (error) {
+      console.error('Erro ao buscar metas:', error);
       toast.error("Erro ao buscar metas.");
     }
   }
