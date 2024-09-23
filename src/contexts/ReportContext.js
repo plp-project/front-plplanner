@@ -14,6 +14,7 @@ export const ReportProvider = ({ children }) => {
     ? report.tasks.categories.mostFinished.map((item) => ({
         name: item.category,
         value: item.count,
+        quantity: item.count,
       }))
     : [];
 
@@ -21,13 +22,21 @@ export const ReportProvider = ({ children }) => {
     ? report.goals.categories.mostFinished.map((item) => ({
         name: item.category,
         value: item.count,
+        quantity: item.count,
       }))
     : [];
 
-  const mostProductiveWeek = report
+  const mostProductiveMonths = report
     ? report.mostProductive.months.map((month) => ({
         name: month.month,
         value: Number(month ? month.count : 0),
+      }))
+    : [];
+
+  const mostProductiveWeeks = report
+    ? report.mostProductive.weeks.map((week) => ({
+        name: week.week,
+        value: Number(week ? week.count : 0),
       }))
     : [];
 
@@ -47,8 +56,9 @@ export const ReportProvider = ({ children }) => {
         return {
           ...defaultShift,
           count: foundShift ? foundShift.count : 0,
-          percentage:
-            (foundShift ? foundShift.count / report.tasks.all : 0) * 100,
+          percentage: Math.ceil(
+            (foundShift ? foundShift.count / report.tasks.all : 0) * 100
+          ),
         };
       })
     : defaultShifts;
@@ -80,8 +90,9 @@ export const ReportProvider = ({ children }) => {
         changePeriodSelected,
         taskCategories,
         goalCategories,
-        mostProductiveWeek,
+        mostProductiveMonths,
         shiftsMostProductive,
+        mostProductiveWeeks,
       }}
     >
       {children}

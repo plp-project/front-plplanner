@@ -6,13 +6,13 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { TaskProvider } from "./contexts/TaskContext";
 import { CategoryProvider } from "./contexts/CategoryContext";
 import { PlanningProvider } from "./contexts/PlanningContext";
-import { ReportProvider } from "./contexts/ReportContext";
+import { ReminderProvider } from "./contexts/ReminderContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <ReportProvider>
+      <ReminderProvider>
         <PlanningProvider>
           <TaskProvider>
             <CategoryProvider>
@@ -20,7 +20,7 @@ root.render(
             </CategoryProvider>
           </TaskProvider>
         </PlanningProvider>
-      </ReportProvider>
+      </ReminderProvider>
     </AuthProvider>
   </React.StrictMode>
 );

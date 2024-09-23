@@ -11,6 +11,8 @@ import HomePage from "./pages/home";
 import Register from "./pages/register";
 import Reports from "./pages/reports";
 import ProtectedRoute from "./ProtectedRoute";
+import { ReportProvider } from "./contexts/ReportContext";
+import Reminder from "./pages/reminder";
 
 function App() {
   return (
@@ -59,7 +61,18 @@ function App() {
             path="/reports"
             element={
               <ProtectedRoute>
-                <Reports />
+                <ReportProvider>
+                  <Reports />
+                </ReportProvider>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/reminds"
+            element={
+              <ProtectedRoute>
+                <Reminder />
               </ProtectedRoute>
             }
           />

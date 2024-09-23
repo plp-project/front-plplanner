@@ -1,8 +1,17 @@
 .control-group {
   width: auto;
   padding: 1rem;
-  background-color: #eeeeee;
+  background-color: var(--bs-gray-200);
   border-radius: 8px;
   margin-right: 1rem;
   margin-bottom: 8px;
+  transition: background-color 250ms;
+}
+
+.control-group-success {
+  background-color: var(--bs-success-bg-subtle) !important;
+}
+
+.control-group-danger {
+  background-color: var(--bs-danger-bg-subtle) !important;
 }

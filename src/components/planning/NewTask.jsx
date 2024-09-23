@@ -47,7 +47,10 @@ const NewTask = ({ day, month, year }) => {
 
   return (
     <div>
-      <button onClick={openModal} className="flex w-full justify-center items-center gap-3 mt-3">
+      <button
+        onClick={openModal}
+        className="flex w-full justify-center items-center gap-3 mt-3"
+      >
         <Plus size={16} />
         Nova Task
       </button>
@@ -87,7 +90,11 @@ const NewTask = ({ day, month, year }) => {
             <label className="block text-xs text-left">Categoria</label>
             <select
               value={selectedCategory?.id || ""}
-              onChange={(e) => setSelectedCategory(categories.find((cat) => cat.id === Number(e.target.value)))}
+              onChange={(e) =>
+                setSelectedCategory(
+                  categories.find((cat) => cat.id === Number(e.target.value))
+                )
+              }
               className="p-2 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
             >
               <option value="">Selecione uma categoria</option>
@@ -101,7 +108,10 @@ const NewTask = ({ day, month, year }) => {
 
           {/* Botão de criar task */}
           <div className="flex p-1 mt-2">
-            <button onClick={handleShowAndAddTask} className="p-2 rounded bg-[#00585E] text-white mr-2">
+            <button
+              onClick={handleShowAndAddTask}
+              className="p-2 rounded bg-[#00585E] text-white mr-2"
+            >
               Criar task
             </button>
           </div>
