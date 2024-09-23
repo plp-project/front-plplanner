@@ -292,7 +292,7 @@ const Task = ({ task, day, month, year }) => {
           {/* Nome */}
           <div className="pt-4 mb-4 flex justify-between">
             <div className="m-0 flex items-start flex-col w-full">
-              <label className="text-gray-700 text-base font-semibold text-[#00585E]">
+              <label className="text-base font-semibold text-[#00585E]">
                 Nome:
               </label>
               {isEditingName ? (
@@ -326,7 +326,7 @@ const Task = ({ task, day, month, year }) => {
           {/* Duração */}
           <div className="mb-8 flex justify-between items-center">
             <div className="m-0 flex items-start flex-col w-full">
-              <label className="text-gray-700 text-base font-semibold text-[#00585E]">
+              <label className=" text-base font-semibold text-[#00585E]">
                 Duração:
               </label>
               {isEditingDuration ? (
@@ -365,7 +365,7 @@ const Task = ({ task, day, month, year }) => {
           {/* Categoria */}
           <div className="mb-4 flex justify-between items-center">
             <div className="m-0 flex items-start flex-col w-full">
-              <label className="text-gray-700 text-base font-semibold text-[#00585E]">
+              <label className=" text-base font-semibold text-[#00585E]">
                 Categoria:
               </label>
               {isEditingCategory ? (

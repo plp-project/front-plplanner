@@ -1,0 +1,13 @@
+.quadro-scroll::-webkit-scrollbar {
+    display: none;
+
+}
+
+.quadro-scroll {
+    overflow-x: scroll;
+    /* Habilita a rolagem horizontal */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+}
