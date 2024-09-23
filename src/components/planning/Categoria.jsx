@@ -20,7 +20,9 @@ const Categoria = ({ categoriaId }) => {
   }
 
   const excluirCategoria = async (categoriaId) => {
-    const confirmDelete = window.confirm("Tem certeza que deseja excluir esta categoria?");
+    const confirmDelete = window.confirm(
+      "Tem certeza que deseja excluir esta categoria?"
+    );
     if (!confirmDelete) return;
     deleteCategory(categoriaId);
   };
@@ -30,7 +32,10 @@ const Categoria = ({ categoriaId }) => {
       <div className="items-center px-3 py-2 w-full text-sm flex justify-start align-baseline hover:bg-gray-500 hover:bg-opacity-25">
         <div className="d-flex justify-between flex-1">
           <div className="d-flex">
-            <span style={{ backgroundColor: categoria.color }} className="w-6 h-6 rounded-sm mr-2">
+            <span
+              style={{ backgroundColor: categoria.color }}
+              className="w-6 h-6 rounded-sm mr-2"
+            >
               &nbsp;
             </span>
             <span>{categoria.name}</span>
@@ -40,7 +45,10 @@ const Categoria = ({ categoriaId }) => {
             <button className="mr-2">
               <CategoryPopover action="Editar" data={categoria} />
             </button>
-            <button onClick={() => excluirCategoria(categoria.id)} className="hover:bg-gray-400 p-1 rounded-sm">
+            <button
+              onClick={() => excluirCategoria(categoria.id)}
+              className="hover:bg-gray-400 p-1 rounded-sm"
+            >
               <Trash size={16} color={"#fff"} />
             </button>
           </div>

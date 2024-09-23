@@ -22,8 +22,12 @@ const CardReport = ({ title, percentage, explainContent }) => {
           <div>
             {percentage >= 50 ? (
               <CheckCircle size={48} className="text-green-700 mr-4" />
+            ) : percentage <= 50 && percentage >= 20 ? (
+              <AlertTriangle size={48} className="text-yellow-500 mr-4" />
             ) : (
-              <AlertTriangle size={48} className="text-red-500 mr-4" />
+              percentage < 20 && (
+                <AlertTriangle size={48} className="text-red-500 mr-4" />
+              )
             )}
           </div>
         </div>

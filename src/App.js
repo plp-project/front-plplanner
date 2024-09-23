@@ -14,6 +14,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { ReportProvider } from "./contexts/ReportContext";
 import Reminder from "./pages/reminder";
 import Goal from "./pages/goal";
+import { GoalProvider } from "./contexts/GoalContext";
 
 function App() {
   return (
@@ -82,7 +83,9 @@ function App() {
             path="/goals"
             element={
               <ProtectedRoute>
-                <Goal />
+                <GoalProvider>
+                  <Goal />
+                </GoalProvider>
               </ProtectedRoute>
             }
           />

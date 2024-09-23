@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../../contexts/AuthContext';
-import UserService from '../../../services/UserService';
-import FormInput from '../formInput';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import './styles.css';
+import React, { useState } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
+import UserService from "../../../services/UserService";
+import FormInput from "../formInput";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import "./styles.css";
 
 const FormBoxLogin = () => {
   const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,16 +17,16 @@ const FormBoxLogin = () => {
     try {
       const response = await UserService.login({ email, password });
       login(response.data.token, response.data.user);
-      navigate('/home');
+      navigate("/home");
     } catch (error) {
-      toast.error('Login failed');
+      toast.error("Login failed");
     }
   };
 
   return (
     <div className="p-10 box-custom">
       <div>
-          <h2 className="title-custom-login font mb-5">Login</h2>
+        <h2 className="title-custom-login font mb-5">Login</h2>
         <form onSubmit={handleLogin}>
           <FormInput
             type="email"
@@ -45,7 +45,10 @@ const FormBoxLogin = () => {
               Entrar
             </button>
             <p className="mt-4 text-sm link-page">
-              Novo por aqui? <a href="/cadastro" className="hover:underline">Cadastre-se aqui!</a>
+              Novo por aqui?{" "}
+              <a href="/cadastro" className="hover:underline">
+                Cadastre-se aqui!
+              </a>
             </p>
           </div>
         </form>

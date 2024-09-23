@@ -2,12 +2,14 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import CategoriaService from "../services/CategoriaService";
 import { mapErrors } from "../helpers/languages";
 import { toast } from "react-toastify";
+import { useAuth } from "./AuthContext";
 
 const CategoryContext = createContext();
 
 export const useCategory = () => useContext(CategoryContext);
 
 export const CategoryProvider = ({ children }) => {
+  const { user } = useAuth();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -18,9 +20,10 @@ export const CategoryProvider = ({ children }) => {
   }
 
   // Função para buscar categorias
-  const fetchCategories = async (userId) => {
+  const fetchCategories = async () => {
+    if (!user) return;
     try {
-      const response = await CategoriaService.getAll(userId);
+      const response = await CategoriaService.getAll();
       setCategories(response.data);
     } catch (error) {
       handleCategoryErrors(error.response.data);
@@ -30,9 +33,10 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para adicionar uma nova categoria
   const addCategory = async (categoria) => {
+    if (!user) return;
     try {
       const response = await CategoriaService.create(categoria);
-      setCategories(prevCategories => [...prevCategories, response.data]);
+      setCategories((prevCategories) => [...prevCategories, response.data]);
     } catch (error) {
       handleCategoryErrors(error.response.data);
       console.error("Erro ao adicionar categoria:", error);
@@ -41,10 +45,11 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para atualizar uma categoria existente
   const updateCategory = async (id, categoria) => {
+    if (!user) return;
     try {
       const response = await CategoriaService.update(id, categoria);
-      setCategories(prevCategories =>
-        prevCategories.map(cat => (cat.id === id ? response.data : cat))
+      setCategories((prevCategories) =>
+        prevCategories.map((cat) => (cat.id === id ? response.data : cat))
       );
     } catch (error) {
       handleCategoryErrors(error.response.data);
@@ -54,10 +59,11 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para deletar uma categoria
   const deleteCategory = async (id) => {
+    if (!user) return;
     try {
       await CategoriaService.delete(id);
-      setCategories(prevCategories =>
-        prevCategories.filter(cat => cat.id !== id)
+      setCategories((prevCategories) =>
+        prevCategories.filter((cat) => cat.id !== id)
       );
     } catch (error) {
       handleCategoryErrors(error.response.data);
@@ -67,12 +73,22 @@ export const CategoryProvider = ({ children }) => {
 
   // Buscar categorias quando o componente é montado
   useEffect(() => {
-    const userId = 1; // Pode ser modificado para pegar o ID do usuário autenticado
-    fetchCategories(userId);
-  });
+    if (!user) return;
+    fetchCategories();
+  }, [user]);
 
   return (
-    <CategoryContext.Provider value={{ categories, selectedCategory, setSelectedCategory, addCategory, updateCategory, deleteCategory, setCategories }}>
+    <CategoryContext.Provider
+      value={{
+        categories,
+        selectedCategory,
+        setSelectedCategory,
+        addCategory,
+        updateCategory,
+        deleteCategory,
+        setCategories,
+      }}
+    >
       {children}
     </CategoryContext.Provider>
   );
