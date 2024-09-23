@@ -72,17 +72,19 @@ const Sidebar = () => {
               ))}
             </div>
 
-            <div className="Category h-96 max-h-52 ">
+            <div className="Category">
               <div className="flex justify-between px-3 pt-3 pb-2">
                 <h6>Categorias</h6>
                 <CategoryPopover action="Criar" />
               </div>
-              <ul>
-                {categories &&
-                  categories.map((categoria, index) => (
-                    <Categoria key={index} categoriaId={categoria.id} nome={categoria.name} cor={categoria.color} />
-                  ))}
-              </ul>
+              <div className="fidex max-h-96 overflow-auto">
+                <ul>
+                  {categories &&
+                    categories.map((categoria, index) => (
+                      <Categoria key={index} categoriaId={categoria.id} nome={categoria.name} cor={categoria.color} />
+                    ))}
+                </ul>
+              </div>
             </div>
           </div>
 
