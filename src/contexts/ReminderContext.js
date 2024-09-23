@@ -125,7 +125,10 @@ export const ReminderProvider = ({ children }) => {
         )
       );
     }
-  }, [reminders]);
+  }, [user, reminders]);
+
+  console.log("reminders: ", reminders);
+  console.log("formData: ", formData);
 
   return (
     <ReminderContext.Provider

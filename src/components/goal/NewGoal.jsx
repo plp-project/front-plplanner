@@ -19,7 +19,7 @@ const NewGoal = ({ createGoal, closeModal, duration }) => {
       return toast.info("Preencha a descrição da meta.", { autoClose: 1500 });
     }
     if (goalDescription.length < 3) {
-      return toast.info("A descrição deve ter mais de 10 caracteres.", { autoClose: 1500 });
+      return toast.info("A descrição deve ter mais de 3 caracteres.", { autoClose: 1500 });
     }
     if (!selectedCategory) {
       return toast.info("Selecione uma categoria.", { autoClose: 1500 });
@@ -45,39 +45,41 @@ const NewGoal = ({ createGoal, closeModal, duration }) => {
     <div>
       <div className="flex flex-col gap-3 text-black">
         <div className="border-b pb-3">
-          <h3 className="text-xl font-medium ">Nova Meta</h3>
+          <h3 className="text-xl font-bold text-[#00585E]">Nova Meta</h3>
         </div>
 
         <div className="mt-2">
-          <label className="block text-xs text-left">Nome da Meta</label>
+          <label className="block text-xs text-left font-medium text-[#00585E] pt-1">Nome da Meta</label>
           <input
             type="text"
             value={goalTitle}
             onChange={(e) => setGoalTitle(e.target.value)}
             placeholder="Insira o nome da meta"
-            className="p-1 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
+            className="border-1 border-gray-300 focus:border-[#00585E] rounded-lg w-full p-2 mt-1 transition-all outline-none"
           />
         </div>
 
         <div className="mt-2">
-          <label className="block text-xs text-left">Descrição</label>
+          <label className="block text-xs text-left font-medium text-[#00585E] pt-1">Descrição</label>
           <input
             type="text"
             value={goalDescription}
             onChange={(e) => setGoalDescription(e.target.value)}
             placeholder="Insira a descrição"
-            className="p-1 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
+            className="border-1 border-gray-300 focus:border-[#00585E] rounded-lg w-full p-2 mt-1 transition-all outline-none"
           />
         </div>
 
         <div className="mt-2">
-          <label className="block text-xs text-left">Categoria</label>
+          <label className="block text-xs text-left font-medium text-[#00585E] pt-1">Categoria</label>
           <select
             value={selectedCategory?.id || ""}
             onChange={(e) => setSelectedCategory(categories.find((cat) => cat.id === Number(e.target.value)))}
-            className="p-2 text-xs w-full h-10 rounded-md border-2 bg-zinc-300"
+            className="border-1 border-gray-300 focus:border-[#00585E] rounded-lg w-full p-2 mt-1 transition-all outline-none"
           >
-            <option value="">Selecione uma categoria</option>
+            <option value="" disabled>
+              Selecione uma categoria
+            </option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
