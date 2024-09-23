@@ -19,14 +19,12 @@ export const TaskProvider = ({ children }) => {
   const [taskName, setTaskName] = useState("");
   const [tasks, setTasks] = useState([]);
 
-  // Função para lidar com erros
   function handleTaskErrors(data) {
     const errors = data?.errors || "Algo deu errado!";
     const message = Array.isArray(errors) ? errors[0] : errors;
     toast.error(message);
   }
 
-  // Função para validar campos obrigatórios e fornecer mensagens específicas
   function validateTaskFields(taskName, taskDescription, duration, category) {
     if (!taskName) {
       toast.error("Adicione um nome à Task!");
