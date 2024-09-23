@@ -14,11 +14,11 @@ function CategoryPopover({ action, data }) {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    if (data && action === "Editar") {
+    if (data && action === "Editar" && !showForm) {
       setNomeCategoria(data.name);
       setCorSelecionada(data.color);
     }
-  }, [data, action]);
+  }, [data, action, showForm]);
 
   const salvarCategoria = async () => {
     if (nomeCategoria && corSelecionada) {
