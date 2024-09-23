@@ -1,10 +1,11 @@
 import { Calendar, Edit, Trash2 } from "react-feather";
+import moment from "moment/moment";
 
 const ReminderItem = ({ reminder, handleEditModal, deleteReminder }) => {
   return (
     <div
       key={reminder.id}
-      className="flex justify-between items-center px-4 py-2 my-2 bg-white rounded-lg"
+      className="flex justify-between items-center px-4 py-2 my-1 bg-white rounded-lg"
       style={{ boxShadow: `0px 7px 0px 0px rgba(0, 0, 0, 0.15)` }}
     >
       <div className="flex flex-col my-1 gap-2">
@@ -12,7 +13,8 @@ const ReminderItem = ({ reminder, handleEditModal, deleteReminder }) => {
           {reminder.description}
         </span>
         <span className="text-sm text-gray-500 gap-1 flex items-center">
-          <Calendar size={14} /> {reminder.date}
+          <Calendar size={14} />{" "}
+          {moment(reminder.date).locale("pt-br").format("LL")}
         </span>
       </div>
 
