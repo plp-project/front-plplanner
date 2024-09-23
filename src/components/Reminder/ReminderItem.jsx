@@ -1,11 +1,22 @@
-import { Edit, Trash2 } from "react-feather";
+import { Calendar, Edit, Trash2 } from "react-feather";
 
 const ReminderItem = ({ reminder, handleEditModal, deleteReminder }) => {
   return (
-    <div className="flex justify-between items-center bg-white p-2 my-2 rounded-lg shadow-sm">
-      <p>{reminder.description}</p>
-      <p>{new Date(reminder.date).toLocaleDateString("pt-BR")}</p>
-      <div className="flex align-middle gap-1">
+    <div
+      key={reminder.id}
+      className="flex justify-between items-center px-4 py-2 my-2 bg-white rounded-lg"
+      style={{ boxShadow: `0px 7px 0px 0px rgba(0, 0, 0, 0.15)` }}
+    >
+      <div className="flex flex-col my-1 gap-2">
+        <span className="font-semibold break-all text-base" style={{}}>
+          {reminder.description}
+        </span>
+        <span className="text-sm text-gray-500 gap-1 flex items-center">
+          <Calendar size={14} /> {new Date(reminder.date).toLocaleDateString("pt-BR")}
+        </span>
+      </div>
+
+      <div className="flex gap-1">
         <button onClick={() => handleEditModal(reminder)} className="hover:bg-gray-300 p-1 rounded-sm">
           <Edit size={20} />
         </button>
