@@ -14,7 +14,7 @@ export const CategoryProvider = ({ children }) => {
   function handleCategoryErrors(data) {
     const errors = mapErrors(data);
     const message = Array.isArray(errors) ? errors[0] : errors;
-    toast.error(message, { autoClose: 2000 });
+    toast.error(message);
   }
 
   // Função para buscar categorias

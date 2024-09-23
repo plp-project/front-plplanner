@@ -32,7 +32,7 @@ export const PlanningProvider = ({ children }) => {
 
   function handleTaskErrors(errors) {
     const mappedErrors = mapErrors(errors);
-    mappedErrors.map((msg) => toast.error(msg, { autoClose: 1500 }));
+    mappedErrors.map((msg) => toast.error(msg));
   }
 
   async function addTaskToPlan(planning, newTask) {
