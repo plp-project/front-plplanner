@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getContrastingColor, hsvaToHex, Swatch } from "@uiw/react-color";
-import { Check, ChevronLeft, Edit, Plus } from "react-feather";
+import { Check, ChevronLeft, Edit2, Plus } from "react-feather";
 import { Popover } from "react-tiny-popover";
 import { useCategory } from "../../contexts/CategoryContext";
 import { categoryColors } from "./categoryColors";
@@ -122,12 +122,12 @@ function CategoryPopover({ action, data }) {
       >
         <button
           onClick={() => setShowForm(!showForm)}
-          className="hover:bg-gray-400 p-1 rounded-sm"
+          className="hover:bg-gray-400 p-1  rounded-sm"
         >
           {action === "Criar" ? (
             <Plus size={16} />
           ) : (
-            <Edit size={16} color={"#fff"} />
+            <Edit2 size={16} color={"#fff"} />
           )}
         </button>
       </Popover>
