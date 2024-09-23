@@ -1,5 +1,6 @@
 const ReminderForm = ({ formData, setFormData, reminderType }) => {
   formData.type = formData.type || reminderType;
+  formData.date = formData.date ? new Date(formData.date).toISOString().split("T")[0] : "";
 
   return (
     <div className="reminder-form">
@@ -21,7 +22,9 @@ const ReminderForm = ({ formData, setFormData, reminderType }) => {
           value={formData.type}
           onChange={(e) => setFormData("type", e.target.value)}
         >
-          <option value="">Selecione o tipo</option>
+          <option value="" disabled>
+            Selecione o tipo de lembrete
+          </option>
           <option value="shopping">Compras</option>
           <option value="call">Ligações</option>
           <option value="meeting">Reuniões</option>

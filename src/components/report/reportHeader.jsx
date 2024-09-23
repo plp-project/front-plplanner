@@ -1,10 +1,9 @@
 import { useReport } from "../../contexts/ReportContext";
 
 function ReportHeader() {
-  const { periodSelected, changePeriodSelected, date, changeDate } =
-    useReport();
+  const { periodSelected, changePeriodSelected, date, changeDate } = useReport();
 
-  const today = new Date().toLocaleString("pt-br");
+  const today = new Date(date).toISOString().split("T")[0];
 
   return (
     <div className="p-4 flex justify-between items-center w-full bg-opacity-50">
@@ -12,16 +11,13 @@ function ReportHeader() {
 
       <div className="flex items-center justify-center">
         <div>
-          <label
-            htmlFor="date"
-            className="text-gray-700 text-md font-semibold mr-2"
-          >
+          <label htmlFor="date" className="text-gray-700 text-md font-semibold mr-2">
             A partir de:{" "}
           </label>
           <input
             type="date"
             name="date"
-            value={date}
+            value={today}
             onChange={(e) => changeDate(e.target.value)}
             id="date-input"
             className="text-gray-700 text-md font-semibold bg-gray-100 p-3 rounded-md mr-4"

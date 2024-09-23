@@ -47,27 +47,26 @@ const ReminderCard = ({ reminders, reminderType }) => {
   const reminderLabel = reminderTypeMap[reminderType] || reminderType;
 
   return (
-    <div className="bg-gray-100 flex flex-col text-gray-800 font-semibold shadow-md p-4 rounded-sm">
-      <span className="font-bold">{reminderLabel}</span>
+    <div className="bg-gray-100 flex flex-col h-fit text-gray-800 font-semibold shadow-md p-4 rounded-sm">
+      <span className="font-bold text-base">{reminderLabel}</span>
 
-      <button className="flex w-full justify-center items-center gap-2 mt-3 mb-2" onClick={() => setShowModal(true)}>
-        <Plus size={16} />
-        <span>Novo Lembrete</span>
-      </button>
-
-      {reminders
-        .filter((reminder) => reminder.type === reminderType)
-        .map((reminder) => (
-          <ul>
+      <div className="flex flex-col max-h-[64vh] gap-3 quadro-scroll overflow-auto mt-2">
+        {reminders
+          .filter((reminder) => reminder.type === reminderType)
+          .map((reminder) => (
             <ReminderItem
               key={reminder.id}
               reminder={reminder}
-              reminderType={reminderLabel}
               handleEditModal={handleEditModal}
               deleteReminder={deleteReminder}
             />
-          </ul>
-        ))}
+          ))}
+      </div>
+
+      <button className="flex w-full justify-center items-center gap-2 mt-3" onClick={() => setShowModal(true)}>
+        <Plus size={16} />
+        <span className="font-semibold text-base">Novo Lembrete</span>
+      </button>
 
       <Modal isOpen={showModal} onClose={handleCloseModal}>
         <div className="flex flex-col gap-3 text-black">
@@ -75,7 +74,7 @@ const ReminderCard = ({ reminders, reminderType }) => {
             <h3 class="text-xl font-bold text-[#00585E]">{reminderSelected ? "Editar lembrete" : "Novo lembrete"}</h3>
           </div>
 
-          <ReminderForm formData={formData} setFormData={changeInputFormData} />
+          <ReminderForm formData={formData} setFormData={changeInputFormData} reminderType={reminderType} />
 
           <div className="flex p-1 mt-3">
             <button
