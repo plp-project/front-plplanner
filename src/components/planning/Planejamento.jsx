@@ -2,6 +2,7 @@ import React from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
 import { usePlanning } from "../../contexts/PlanningContext";
+import "./planejamento.css";
 
 const Planejamento = ({ month, year, getTodayRef }) => {
   const { getPlanningByDate } = usePlanning();
@@ -37,13 +38,13 @@ const Planejamento = ({ month, year, getTodayRef }) => {
             boxShadow: `0px 4px 4px 0px rgba(0, 0, 0, 0.25)`,
           }}
         >
-          <div className="list-body flex flex-col gap-3">
-            <div className="flex justify-between p-1">
-              <span>{`${formattedDay}/${String(month).padStart(
-                2,
-                "0"
-              )} - ${dayOfWeek}`}</span>
-            </div>
+          <div className="flex justify-between p-1 pb-2">
+            <span>{`${formattedDay}/${String(month).padStart(
+              2,
+              "0"
+            )} - ${dayOfWeek}`}</span>
+          </div>
+          <div className="list-body flex flex-col max-h-[72vh] gap-3 quadro-scroll overflow-auto pb-2">
             {filteredPlanning &&
               filteredPlanning.tasks &&
               filteredPlanning.tasks.map((task) => (
@@ -55,8 +56,8 @@ const Planejamento = ({ month, year, getTodayRef }) => {
                   year={year}
                 />
               ))}
-            <NewTask day={day} month={month} year={year} />
           </div>
+          <NewTask day={day} month={month} year={year} />
         </div>
       );
     }
