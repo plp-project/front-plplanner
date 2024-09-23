@@ -14,7 +14,7 @@ const ReminderItem = ({ reminder, handleEditModal, deleteReminder }) => {
         </span>
         <span className="text-sm text-gray-500 gap-1 flex items-center">
           <Calendar size={14} />{" "}
-          {moment(reminder.date).locale("pt-br").format("LL")}
+          {moment(reminder.date).locale("pt-br").format("DD/MM/YYYY")}
         </span>
       </div>
 
