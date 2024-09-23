@@ -50,7 +50,8 @@ export const ReminderProvider = ({ children }) => {
     validateFields();
     try {
       const data = await ReminderService.create(formData);
-      setReminders((prevReminders) => [...prevReminders, data]);
+      const newReminders = [...reminders, data];
+      setReminders(newReminders);
     } catch (error) {
       handleReminderErrors(error.response.data);
     }
