@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Edit2, x, Trash2, Play, CheckCircle, Clock, X } from "react-feather";
+import { Edit2, Trash2, Play, Clock, X } from "react-feather";
 import { useTask } from "../../contexts/TaskContext";
 import { useCategory } from "../../contexts/CategoryContext";
 import FloatingTimer from "./FloatingTimer";
