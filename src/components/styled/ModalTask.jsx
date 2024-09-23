@@ -18,7 +18,7 @@ export const ModalContainer = styled.div`
   padding: 40px;
   width: 800px;
   max-width: 70%;
-  height: 70vh;
+  height: auto;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-out;
@@ -46,7 +46,13 @@ export const CloseButton = styled.button`
 `;
 
 export const CloseIcon = () => (
-  <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+  <svg
+    className="w-3 h-3"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 14 14"
+  >
     <path
       stroke="currentColor"
       strokeLinecap="round"

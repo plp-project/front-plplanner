@@ -16,10 +16,12 @@ export const TaskProvider = ({ children }) => {
     updateTaskFromPlan,
   } = usePlanning();
   const [taskDescription, setTaskDescription] = useState("");
+  const [taskName, setTaskName] = useState("");
   const [tasks, setTasks] = useState([]);
 
-  async function addTask(date, taskDescription, duration, category) {
+  async function addTask(date, taskDescription, duration, category, taskName) {
     const newTask = {
+      name: taskName,
       description: taskDescription,
       duration: duration,
       categoryId: category.id,
@@ -55,6 +57,8 @@ export const TaskProvider = ({ children }) => {
         setTaskDescription,
         removeTask,
         updateTask,
+        taskName,
+        setTaskName,
       }}
     >
       {children}
