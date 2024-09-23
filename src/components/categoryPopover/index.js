@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 function CategoryPopover({ action, data }) {
   const { addCategory, updateCategory } = useCategory();
   const [nomeCategoria, setNomeCategoria] = useState(data ? data.name : "");
-  const [corSelecionada, setCorSelecionada] = useState(data ? data.color : "#ffffff");
+  const [corSelecionada, setCorSelecionada] = useState(
+    data ? data.color : "#ffffff"
+  );
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -37,8 +39,7 @@ function CategoryPopover({ action, data }) {
       setNomeCategoria("");
       setCorSelecionada("#ffffff");
       setShowForm(false);
-    }
-    else {
+    } else {
       toast.info("Preencha o nome e selecione a cor da categoria.");
     }
   };
@@ -56,7 +57,7 @@ function CategoryPopover({ action, data }) {
         isOpen={showForm}
         onClickOutside={() => setShowForm(false)}
         content={({ position, childRect, popoverRect }) => (
-          <div className="popover-content bg-gray-200 rounded-xl p-2 border-1 border-gray-300">
+          <div className="popover-content bg-white rounded-xl p-2 border-1 border-gray-300">
             <div className="popover-header px-3 pt-2">
               <div className="d-flex justify-between pb-2 items-center border-b border-gray-300">
                 <ChevronLeft
@@ -99,8 +100,8 @@ function CategoryPopover({ action, data }) {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      borderRadius: "5px"
-                    }
+                      borderRadius: "5px",
+                    },
                   }}
                   onChange={(hsvColor) => {
                     setCorSelecionada(hsvaToHex(hsvColor));
@@ -123,12 +124,15 @@ function CategoryPopover({ action, data }) {
           onClick={() => setShowForm(!showForm)}
           className="hover:bg-gray-400 p-1 rounded-sm"
         >
-          {action === "Criar" ? <Plus size={16} /> : <Edit size={16} color={"#fff"} />}
+          {action === "Criar" ? (
+            <Plus size={16} />
+          ) : (
+            <Edit size={16} color={"#fff"} />
+          )}
         </button>
       </Popover>
     </>
   );
 }
-
 
 export default CategoryPopover;

@@ -15,11 +15,18 @@ const NewTask = ({ day, month, year }) => {
     setTaskName,
   } = useTask();
   const { categories } = useCategory();
-  const [duration, setDuration] = useState("30m");
+  const [duration, setDuration] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTaskName("");
+    setTaskDescription("");
+    setDuration("");
+    setSelectedCategory("");
+  };
 
   const handleShowAndAddTask = () => {
     taskDescription.trim();
@@ -50,11 +57,7 @@ const NewTask = ({ day, month, year }) => {
       selectedCategory,
       taskName
     );
-
-    setTaskDescription("");
-    setDuration("");
-    setSelectedCategory(null);
-    setIsModalOpen(false);
+    closeModal();
   };
 
   return (
@@ -95,9 +98,13 @@ const NewTask = ({ day, month, year }) => {
             </label>
             <select
               value={duration}
+              defaultValue={""}
               onChange={(e) => setDuration(e.target.value)}
               className="border border-gray-300 focus:border-[#00585E] rounded-lg w-full p-2 mt-1 transition-all focus:outline-none"
             >
+              <option value="" disabled>
+                Selecione uma duração
+              </option>
               <option value="30m">30 minutos</option>
               <option value="1h">1 hora</option>
               <option value="morning">Manhã</option>
@@ -120,7 +127,9 @@ const NewTask = ({ day, month, year }) => {
               }
               className="border border-gray-300 focus:border-[#00585E] rounded-lg w-full p-2 mt-1 transition-all focus:outline-none"
             >
-              <option value="">Selecione uma categoria</option>
+              <option value="" disabled>
+                Selecione uma categoria
+              </option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}

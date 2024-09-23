@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGoal } from "../../contexts/GoalContext";
 import GoalHeader from "./GoalHeader";
 import NewGoal from "./NewGoal";
@@ -9,11 +9,15 @@ import Modal from "../../components/planning/Modal";
 import "./goal.css";
 
 const GoalMain = () => {
-  const { goals, addGoal, updateGoalStatus, removeGoal } = useGoal();
+  const { goals, addGoal, updateGoal, removeGoal, fetchGoals } = useGoal();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
   const [goalDuration, setGoalDuration] = useState(null);
+
+  useEffect(() => {
+    fetchGoals();  
+  }, [fetchGoals]);
 
   const openAddGoalModal = (duration) => {
     setGoalDuration(duration);
@@ -44,7 +48,7 @@ const GoalMain = () => {
               <GoalCard
                 key={goal.id}
                 goal={goal}
-                onClick={() => openEditGoalModal(goal)}
+                onEdit={openEditGoalModal}  // Passando a função para o botão de edição
                 onDelete={() => handleDeleteGoal(goal.id)}
               />
             ))}
@@ -61,7 +65,7 @@ const GoalMain = () => {
               <GoalCard
                 key={goal.id}
                 goal={goal}
-                onClick={() => openEditGoalModal(goal)}
+                onEdit={openEditGoalModal}  // Passando a função para o botão de edição
                 onDelete={() => handleDeleteGoal(goal.id)}
               />
             ))}
@@ -78,7 +82,7 @@ const GoalMain = () => {
               <GoalCard
                 key={goal.id}
                 goal={goal}
-                onClick={() => openEditGoalModal(goal)}
+                onEdit={openEditGoalModal}  // Passando a função para o botão de edição
                 onDelete={() => handleDeleteGoal(goal.id)}
               />
             ))}
@@ -92,8 +96,8 @@ const GoalMain = () => {
       <Modal isOpen={isAddModalOpen} onClose={closeAddModal}>
         <NewGoal closeModal={closeAddModal} createGoal={addGoal} duration={goalDuration} />
       </Modal>
-      <Modal isOpen={isEditModalOpen}>
-        <EditGoalModal goal={selectedGoal} closeModal={closeEditModal} updateGoalStatus={updateGoalStatus} />
+      <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
+        <EditGoalModal goal={selectedGoal} closeModal={closeEditModal} editGoal={updateGoal} />
       </Modal>
     </div>
   );
