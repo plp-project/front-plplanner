@@ -18,9 +18,9 @@ export const CategoryProvider = ({ children }) => {
   }
 
   // Função para buscar categorias
-  const fetchCategories = async (userId) => {
+  const fetchCategories = async () => {
     try {
-      const response = await CategoriaService.getAll(userId);
+      const response = await CategoriaService.getAll();
       setCategories(response.data);
     } catch (error) {
       handleCategoryErrors(error.response.data);
@@ -32,7 +32,7 @@ export const CategoryProvider = ({ children }) => {
   const addCategory = async (categoria) => {
     try {
       const response = await CategoriaService.create(categoria);
-      setCategories(prevCategories => [...prevCategories, response.data]);
+      setCategories((prevCategories) => [...prevCategories, response.data]);
     } catch (error) {
       handleCategoryErrors(error.response.data);
       console.error("Erro ao adicionar categoria:", error);
@@ -43,8 +43,8 @@ export const CategoryProvider = ({ children }) => {
   const updateCategory = async (id, categoria) => {
     try {
       const response = await CategoriaService.update(id, categoria);
-      setCategories(prevCategories =>
-        prevCategories.map(cat => (cat.id === id ? response.data : cat))
+      setCategories((prevCategories) =>
+        prevCategories.map((cat) => (cat.id === id ? response.data : cat))
       );
     } catch (error) {
       handleCategoryErrors(error.response.data);
@@ -56,8 +56,8 @@ export const CategoryProvider = ({ children }) => {
   const deleteCategory = async (id) => {
     try {
       await CategoriaService.delete(id);
-      setCategories(prevCategories =>
-        prevCategories.filter(cat => cat.id !== id)
+      setCategories((prevCategories) =>
+        prevCategories.filter((cat) => cat.id !== id)
       );
     } catch (error) {
       handleCategoryErrors(error.response.data);
@@ -67,12 +67,21 @@ export const CategoryProvider = ({ children }) => {
 
   // Buscar categorias quando o componente é montado
   useEffect(() => {
-    const userId = 1; // Pode ser modificado para pegar o ID do usuário autenticado
-    fetchCategories(userId);
-  });
+    fetchCategories();
+  }, []);
 
   return (
-    <CategoryContext.Provider value={{ categories, selectedCategory, setSelectedCategory, addCategory, updateCategory, deleteCategory, setCategories }}>
+    <CategoryContext.Provider
+      value={{
+        categories,
+        selectedCategory,
+        setSelectedCategory,
+        addCategory,
+        updateCategory,
+        deleteCategory,
+        setCategories,
+      }}
+    >
       {children}
     </CategoryContext.Provider>
   );

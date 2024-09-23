@@ -7,8 +7,14 @@ import CardReport from "./cardReport";
 import ShiftCard from "./shiftCard";
 
 const ReportMain = () => {
-  const { report, mostProductiveMonths, mostProductiveWeeks, taskCategories, goalCategories, shiftsMostProductive } =
-    useReport();
+  const {
+    report,
+    mostProductiveMonths,
+    mostProductiveWeeks,
+    taskCategories,
+    goalCategories,
+    shiftsMostProductive,
+  } = useReport();
 
   const charts = [
     {
@@ -27,12 +33,14 @@ const ReportMain = () => {
       component: CustomBarChart,
       title: "Meses mais produtivos",
       data: mostProductiveMonths,
+      type: "month",
       size: "larger",
     },
     {
       component: CustomBarChart,
       title: "Semanas mais produtivas",
       data: mostProductiveWeeks,
+      type: "week",
       size: "larger",
     },
   ];
@@ -57,20 +65,28 @@ const ReportMain = () => {
       </div>
 
       <div className="d-grid h-full w-full grid-cols-4 grid-rows-2 px-4">
-        {charts.map(({ component: ChartComponent, title, data, size }, index) => (
-          <div className={`d-flex flex-col items-center control-group ${size === "larger" && "col-span-2"}`}>
-            <div className="">
-              <p className="text-md text-center text-gray-700 font-bold">{title}</p>
+        {charts.map(
+          ({ component: ChartComponent, title, data, size, type }, index) => (
+            <div
+              className={`d-flex flex-col items-center control-group ${
+                size === "larger" && "col-span-2"
+              }`}
+            >
+              <div className="">
+                <p className="text-md text-center text-gray-700 font-bold">
+                  {title}
+                </p>
+              </div>
+              {data.length < 1 ? (
+                <p className="w-3/4 text-center text-gray-600 font-semibold">
+                  Não há informações suficientes para processar esse relatório
+                </p>
+              ) : (
+                <ChartComponent data={data} type={type} />
+              )}
             </div>
-            {data.length < 1 ? (
-              <p className="w-3/4 text-center text-gray-600 font-semibold">
-                Não há informações suficientes para processar esse relatório
-              </p>
-            ) : (
-              <ChartComponent data={data} />
-            )}
-          </div>
-        ))}
+          )
+        )}
       </div>
     </div>
   );

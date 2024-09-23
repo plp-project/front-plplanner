@@ -12,6 +12,10 @@
   background-color: var(--bs-success-bg-subtle) !important;
 }
 
+.control-group-warning {
+  background-color: var(--bs-warning-bg-subtle) !important;
+}
+
 .control-group-danger {
   background-color: var(--bs-danger-bg-subtle) !important;
 }
