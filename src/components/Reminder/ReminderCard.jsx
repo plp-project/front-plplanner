@@ -50,23 +50,6 @@ const ReminderCard = ({ reminders, reminderType }) => {
     shopping: { title: "Compras", icon: <ShoppingBag size={20} /> },
   };
 
-<<<<<<< HEAD
-  const reminderIconType = {
-    call: PhoneCall,
-    meeting: Users,
-    shopping: ShoppingBag,
-  };
-
-  const reminderLabel = reminderTypeMap[reminderType] || reminderType;
-
-  return (
-    <div className="bg-gray-100 flex flex-col h-fit text-gray-800 font-semibold shadow-md p-4 rounded-sm">
-      <div className="font-bold text-base flex items-center">
-        {reminderIconType[reminderType] &&
-          React.createElement(reminderIconType[reminderType])}
-        <span className="ml-2 text-md font-semibold">{reminderLabel}</span>
-      </div>
-=======
   const reminderLabel = reminderTypeMap[reminderType].title;
   const reminderIcon = reminderTypeMap[reminderType].icon;
 
@@ -76,7 +59,6 @@ const ReminderCard = ({ reminders, reminderType }) => {
         {reminderIcon}
         {reminderLabel}
       </span>
->>>>>>> 1a6566cd2a1fafb6cbab92b98d6dab105d039e2e
 
       <div className="flex flex-col max-h-[64vh] gap-3 quadro-scroll overflow-auto mt-2">
         {reminders
