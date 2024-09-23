@@ -10,9 +10,7 @@ import { toast } from "react-toastify";
 function CategoryPopover({ action, data }) {
   const { addCategory, updateCategory } = useCategory();
   const [nomeCategoria, setNomeCategoria] = useState(data ? data.name : "");
-  const [corSelecionada, setCorSelecionada] = useState(
-    data ? data.color : "#ffffff"
-  );
+  const [corSelecionada, setCorSelecionada] = useState(data ? data.color : "");
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -37,7 +35,7 @@ function CategoryPopover({ action, data }) {
       }
 
       setNomeCategoria("");
-      setCorSelecionada("#ffffff");
+      setCorSelecionada("");
       setShowForm(false);
     } else {
       toast.info("Preencha o nome e selecione a cor da categoria.");

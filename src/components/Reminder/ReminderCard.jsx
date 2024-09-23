@@ -1,4 +1,4 @@
-import { Plus } from "react-feather";
+import { PhoneCall, Plus, ShoppingBag, Users } from "react-feather";
 import { useReminder } from "../../contexts/ReminderContext";
 import { useState } from "react";
 import Modal from "../planning/Modal";
@@ -39,16 +39,20 @@ const ReminderCard = ({ reminders, reminderType }) => {
   }
 
   const reminderTypeMap = {
-    call: "Ligações",
-    meeting: "Reuniões",
-    shopping: "Compras",
+    call: { title: "Ligações", icon: <PhoneCall size={20} /> },
+    meeting: { title: "Reuniões", icon: <Users size={20} /> },
+    shopping: { title: "Compras", icon: <ShoppingBag size={20} /> },
   };
 
-  const reminderLabel = reminderTypeMap[reminderType] || reminderType;
+  const reminderLabel = reminderTypeMap[reminderType].title;
+  const reminderIcon = reminderTypeMap[reminderType].icon;
 
   return (
     <div className="bg-gray-100 flex flex-col h-fit text-gray-800 font-semibold shadow-md p-4 rounded-sm">
-      <span className="font-bold text-base">{reminderLabel}</span>
+      <span className="font-bold text-base flex gap-2 items-center">
+        {reminderIcon}
+        {reminderLabel}
+      </span>
 
       <div className="flex flex-col max-h-[64vh] gap-3 quadro-scroll overflow-auto mt-2">
         {reminders
