@@ -30,7 +30,7 @@ const CustomTooltip = ({ active, payload, label }) => {
           <p className="label text-gray-600 font-semiBold">{`${label}`}</p>
         )}
         <p className="label text-gray-700 font-bold">{`${value} ${
-          value > 1 ? "Tarefas" : "Tarefa"
+          value > 1 ? "Executadas" : "Executada"
         }`}</p>
       </div>
     );

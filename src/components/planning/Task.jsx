@@ -207,6 +207,14 @@ const Task = ({ task, day, month, year }) => {
     );
   };
 
+  const taskShiftMap = {
+    "30m": "30 minutos",
+    "1h": "1 Hora",
+    morning: "Manhã",
+    afternoon: "Tarde",
+    night: "Noite",
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3">
@@ -252,7 +260,7 @@ const Task = ({ task, day, month, year }) => {
 
             {/* Duração */}
             <span className="text-sm text-gray-500 gap-1 flex items-center">
-              <Clock size={14} /> {task.duration}
+              <Clock size={14} /> {taskShiftMap[task.duration]}
             </span>
 
             {/* Status */}
@@ -357,7 +365,7 @@ const Task = ({ task, day, month, year }) => {
                   </button>
                 </div>
               ) : (
-                <p>{task.duration}</p>
+                <p>{taskShiftMap[task.duration]}</p>
               )}
             </div>
             {!isEditingDuration && (

@@ -1,0 +1,14 @@
+.notificationContainer {
+  width: 300px;
+  height: 64px;
+  boxshadow: 0px 7px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.notificationButton {
+  background-color: var(--bs-dark);
+  transition: all 200ms;
+}
+
+.notificationButton:hover {
+  filter: brightness(0.8);
+}

@@ -1,12 +1,18 @@
 import { PhoneCall, Plus, ShoppingBag, Users } from "react-feather";
 import { useReminder } from "../../contexts/ReminderContext";
-import { useState } from "react";
+import React, { useState } from "react";
 import Modal from "../planning/Modal";
 import ReminderForm from "./ReminderForm";
 import ReminderItem from "./ReminderItem";
 
 const ReminderCard = ({ reminders, reminderType }) => {
-  const { formData, changeInputFormData, createReminder, editReminder, deleteReminder } = useReminder();
+  const {
+    formData,
+    changeInputFormData,
+    createReminder,
+    editReminder,
+    deleteReminder,
+  } = useReminder();
   const [showModal, setShowModal] = useState(false);
   const [reminderSelected, setReminderSelected] = useState(null);
 
@@ -67,7 +73,10 @@ const ReminderCard = ({ reminders, reminderType }) => {
           ))}
       </div>
 
-      <button className="flex w-full justify-center items-center gap-2 mt-3" onClick={() => setShowModal(true)}>
+      <button
+        className="flex w-full justify-center items-center gap-2 mt-3"
+        onClick={() => setShowModal(true)}
+      >
         <Plus size={16} />
         <span className="font-semibold text-base">Novo Lembrete</span>
       </button>
@@ -75,15 +84,23 @@ const ReminderCard = ({ reminders, reminderType }) => {
       <Modal isOpen={showModal} onClose={handleCloseModal}>
         <div className="flex flex-col gap-3 text-black">
           <div class="border-b pb-3">
-            <h3 class="text-xl font-bold text-[#00585E]">{reminderSelected ? "Editar lembrete" : "Novo lembrete"}</h3>
+            <h3 class="text-xl font-bold text-[#00585E]">
+              {reminderSelected ? "Editar lembrete" : "Novo lembrete"}
+            </h3>
           </div>
 
-          <ReminderForm formData={formData} setFormData={changeInputFormData} reminderType={reminderType} />
+          <ReminderForm
+            formData={formData}
+            setFormData={changeInputFormData}
+            reminderType={reminderType}
+          />
 
           <div className="flex p-1 mt-3">
             <button
               className="p-2 rounded bg-[#00585E] text-white mr-2"
-              onClick={(e) => (reminderSelected ? handleEditSubmit(e) : handleCreateSubmit(e))}
+              onClick={(e) =>
+                reminderSelected ? handleEditSubmit(e) : handleCreateSubmit(e)
+              }
             >
               {reminderSelected ? "Editar lembrete" : "Criar lembrete"}
             </button>
