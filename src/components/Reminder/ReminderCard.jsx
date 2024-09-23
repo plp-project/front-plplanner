@@ -57,7 +57,6 @@ const ReminderCard = ({ reminders, reminderType }) => {
             <ReminderItem
               key={reminder.id}
               reminder={reminder}
-              reminderType={reminderLabel}
               handleEditModal={handleEditModal}
               deleteReminder={deleteReminder}
             />
@@ -75,7 +74,7 @@ const ReminderCard = ({ reminders, reminderType }) => {
             <h3 class="text-xl font-bold text-[#00585E]">{reminderSelected ? "Editar lembrete" : "Novo lembrete"}</h3>
           </div>
 
-          <ReminderForm formData={formData} setFormData={changeInputFormData} />
+          <ReminderForm formData={formData} setFormData={changeInputFormData} reminderType={reminderType} />
 
           <div className="flex p-1 mt-3">
             <button
