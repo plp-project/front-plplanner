@@ -13,6 +13,7 @@ import Reports from "./pages/reports";
 import ProtectedRoute from "./ProtectedRoute";
 import { ReportProvider } from "./contexts/ReportContext";
 import Reminder from "./pages/reminder";
+import Goal from "./pages/goal";
 
 function App() {
   return (
@@ -73,6 +74,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Reminder />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/goals"
+            element={
+              <ProtectedRoute>
+                <Goal />
               </ProtectedRoute>
             }
           />

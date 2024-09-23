@@ -7,19 +7,22 @@ import { TaskProvider } from "./contexts/TaskContext";
 import { CategoryProvider } from "./contexts/CategoryContext";
 import { PlanningProvider } from "./contexts/PlanningContext";
 import { ReminderProvider } from "./contexts/ReminderContext";
+import { GoalProvider } from "./contexts/GoalContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <ReminderProvider>
-        <PlanningProvider>
-          <TaskProvider>
-            <CategoryProvider>
-              <App />
-            </CategoryProvider>
-          </TaskProvider>
-        </PlanningProvider>
+        <GoalProvider>
+          <PlanningProvider>
+            <TaskProvider>
+              <CategoryProvider>
+                <App />
+              </CategoryProvider>
+            </TaskProvider>
+          </PlanningProvider>
+        </GoalProvider>
       </ReminderProvider>
     </AuthProvider>
   </React.StrictMode>
