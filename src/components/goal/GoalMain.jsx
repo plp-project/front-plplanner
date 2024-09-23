@@ -3,8 +3,7 @@ import { useGoal } from "../../contexts/GoalContext";
 import GoalHeader from "./GoalHeader";
 import NewGoal from "./NewGoal";
 import EditGoalModal from "./EditGoalModal";
-import GoalCard from "./GoalCard";
-import { Plus } from "react-feather";
+import GoalColumn from "./GoalColumn";
 import Modal from "../../components/planning/Modal";
 import "./goal.css";
 
@@ -16,7 +15,7 @@ const GoalMain = () => {
   const [goalDuration, setGoalDuration] = useState(null);
 
   useEffect(() => {
-    fetchGoals();  
+    fetchGoals();
   }, [fetchGoals]);
 
   const openAddGoalModal = (duration) => {
@@ -39,58 +38,31 @@ const GoalMain = () => {
   return (
     <div className="flex flex-col w-full bg-white">
       <GoalHeader />
-      <div className="w-full d-grid grid-cols-3 px-4 my-3">
-        <div className="goal-column">
-          <span>Semanal</span>
-          {goals
-            .filter((goal) => goal.duration === "weekly")
-            .map((goal) => (
-              <GoalCard
-                key={goal.id}
-                goal={goal}
-                onEdit={openEditGoalModal}  // Passando a função para o botão de edição
-                onDelete={() => handleDeleteGoal(goal.id)}
-              />
-            ))}
-          <button onClick={() => openAddGoalModal("weekly")}>
-            <Plus size={16} />
-            <span>Nova Meta</span>
-          </button>
-        </div>
-        <div className="goal-column">
-          <span>Mensal</span>
-          {goals
-            .filter((goal) => goal.duration === "monthly")
-            .map((goal) => (
-              <GoalCard
-                key={goal.id}
-                goal={goal}
-                onEdit={openEditGoalModal}  // Passando a função para o botão de edição
-                onDelete={() => handleDeleteGoal(goal.id)}
-              />
-            ))}
-          <button onClick={() => openAddGoalModal("monthly")} className="btn-add-goal">
-            <Plus size={16} />
-            <span>Nova Meta</span>
-          </button>
-        </div>
-        <div className="goal-column">
-          <span>Anual</span>
-          {goals
-            .filter((goal) => goal.duration === "yearly")
-            .map((goal) => (
-              <GoalCard
-                key={goal.id}
-                goal={goal}
-                onEdit={openEditGoalModal}  // Passando a função para o botão de edição
-                onDelete={() => handleDeleteGoal(goal.id)}
-              />
-            ))}
-          <button onClick={() => openAddGoalModal("yearly")} className="btn-add-goal">
-            <Plus size={16} />
-            <span>Nova Meta</span>
-          </button>
-        </div>
+      <div className="w-full d-grid grid-cols-3 px-5 my-3 gap-5">
+        <GoalColumn
+          title="Semanal"
+          duration="weekly"
+          goals={goals}
+          onEdit={openEditGoalModal}
+          onDelete={handleDeleteGoal}
+          onAddGoal={() => openAddGoalModal("weekly")}
+        />
+        <GoalColumn
+          title="Mensal"
+          duration="monthly"
+          goals={goals}
+          onEdit={openEditGoalModal}
+          onDelete={handleDeleteGoal}
+          onAddGoal={() => openAddGoalModal("monthly")}
+        />
+        <GoalColumn
+          title="Anual"
+          duration="yearly"
+          goals={goals}
+          onEdit={openEditGoalModal}
+          onDelete={handleDeleteGoal}
+          onAddGoal={() => openAddGoalModal("yearly")}
+        />
       </div>
 
       <Modal isOpen={isAddModalOpen} onClose={closeAddModal}>
