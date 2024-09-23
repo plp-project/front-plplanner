@@ -11,6 +11,7 @@ export const useReminder = () => useContext(ReminderContext);
 export const ReminderProvider = ({ children }) => {
   const { user } = useAuth();
   const [reminders, setReminders] = useState([]);
+  const [notifications, setNotifications] = useState([]);
   const [formData, setFormData] = useState({
     description: null,
     type: null,
@@ -69,6 +70,12 @@ export const ReminderProvider = ({ children }) => {
     }
   }
 
+  async function deleteNotification(id) {
+    if (!user) return;
+    const newNotifications = notifications.filter((remind) => remind.id !== id);
+    setNotifications(newNotifications);
+  }
+
   async function deleteReminder(id) {
     if (!user) return;
     const newReminders = reminders.filter((remind) => remind.id !== id);
@@ -79,6 +86,7 @@ export const ReminderProvider = ({ children }) => {
     try {
       await ReminderService.delete(id);
       setReminders(newReminders);
+      deleteNotification(id);
     } catch (error) {
       handleReminderErrors(error.response.data);
     }
@@ -113,17 +121,8 @@ export const ReminderProvider = ({ children }) => {
       const remindDate = new Date(remind.date);
       return isToday(remindDate);
     });
-    const getEmojiByRemindType = {
-      call: "📞",
-      shopping: "🛒",
-      meeting: "📅",
-    };
     if (remindersToday.length > 0) {
-      remindersToday.map((item) =>
-        toast.info(
-          `${getEmojiByRemindType[item.type]} ${item.description} hoje!`
-        )
-      );
+      setNotifications(remindersToday);
     }
   }, [user, reminders]);
 
@@ -135,6 +134,7 @@ export const ReminderProvider = ({ children }) => {
       value={{
         reminders,
         formData,
+        notifications,
         editReminder,
         changeInputFormData,
         createReminder,
