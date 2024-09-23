@@ -68,6 +68,7 @@ const ReportMain = () => {
         {charts.map(
           ({ component: ChartComponent, title, data, size, type }, index) => (
             <div
+              key={title}
               className={`d-flex flex-col items-center control-group ${
                 size === "larger" && "col-span-2"
               }`}

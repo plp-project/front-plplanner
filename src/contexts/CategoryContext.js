@@ -2,12 +2,14 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import CategoriaService from "../services/CategoriaService";
 import { mapErrors } from "../helpers/languages";
 import { toast } from "react-toastify";
+import { useAuth } from "./AuthContext";
 
 const CategoryContext = createContext();
 
 export const useCategory = () => useContext(CategoryContext);
 
 export const CategoryProvider = ({ children }) => {
+  const { user } = useAuth();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -19,6 +21,7 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para buscar categorias
   const fetchCategories = async () => {
+    if (!user) return;
     try {
       const response = await CategoriaService.getAll();
       setCategories(response.data);
@@ -30,6 +33,7 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para adicionar uma nova categoria
   const addCategory = async (categoria) => {
+    if (!user) return;
     try {
       const response = await CategoriaService.create(categoria);
       setCategories((prevCategories) => [...prevCategories, response.data]);
@@ -41,6 +45,7 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para atualizar uma categoria existente
   const updateCategory = async (id, categoria) => {
+    if (!user) return;
     try {
       const response = await CategoriaService.update(id, categoria);
       setCategories((prevCategories) =>
@@ -54,6 +59,7 @@ export const CategoryProvider = ({ children }) => {
 
   // Função para deletar uma categoria
   const deleteCategory = async (id) => {
+    if (!user) return;
     try {
       await CategoriaService.delete(id);
       setCategories((prevCategories) =>
@@ -67,8 +73,9 @@ export const CategoryProvider = ({ children }) => {
 
   // Buscar categorias quando o componente é montado
   useEffect(() => {
+    if (!user) return;
     fetchCategories();
-  }, []);
+  }, [user]);
 
   return (
     <CategoryContext.Provider

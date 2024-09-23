@@ -74,7 +74,7 @@ const Sidebar = () => {
             <div className="nav-container flex pt-2 pb-2 flex-col gap-1 border-b border-b-[#9fadbc29]">
               {navigateButtons.map(
                 ({ component: Icon, page, title }, index) => (
-                  <>
+                  <React.Fragment key={page}>
                     <div className="flex py-2 px-3 w-full items-center hover:bg-[#3e3e3e]">
                       <Link
                         to={page}
@@ -84,7 +84,7 @@ const Sidebar = () => {
                         <p className="ml-4">{title}</p>
                       </Link>
                     </div>
-                  </>
+                  </React.Fragment>
                 )
               )}
             </div>

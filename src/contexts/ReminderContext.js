@@ -2,12 +2,14 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ReminderService from "../services/ReminderService";
 import { mapErrors } from "../helpers/languages";
+import { useAuth } from "./AuthContext";
 
 const ReminderContext = createContext();
 
 export const useReminder = () => useContext(ReminderContext);
 
 export const ReminderProvider = ({ children }) => {
+  const { user } = useAuth();
   const [reminders, setReminders] = useState([]);
   const [formData, setFormData] = useState({
     description: null,
@@ -43,6 +45,7 @@ export const ReminderProvider = ({ children }) => {
   }
 
   async function createReminder() {
+    if (!user) return;
     validateFields();
     try {
       const data = await ReminderService.create(formData);
@@ -53,6 +56,7 @@ export const ReminderProvider = ({ children }) => {
   }
 
   async function editReminder(id) {
+    if (!user) return;
     validateFields();
     try {
       const data = await ReminderService.update(id, formData);
@@ -66,6 +70,7 @@ export const ReminderProvider = ({ children }) => {
   }
 
   async function deleteReminder(id) {
+    if (!user) return;
     const newReminders = reminders.filter((remind) => remind.id !== id);
 
     if (newReminders.length === reminders.length)
@@ -80,6 +85,7 @@ export const ReminderProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    if (!user) return;
     const fetchReminders = async () => {
       const data = await ReminderService.getAllByUser();
 
@@ -90,11 +96,36 @@ export const ReminderProvider = ({ children }) => {
     };
 
     fetchReminders();
-  }, []);
+  }, [user]);
 
-  useEffect(() => { }, []);
+  const isToday = (date2) => {
+    const today = new Date();
+    return (
+      today.getDate() === date2.getDate() &&
+      today.getMonth() === date2.getMonth() &&
+      today.getFullYear() === date2.getFullYear()
+    );
+  };
 
-  console.log("formdata", formData);
+  useEffect(() => {
+    if (!user) return;
+    const remindersToday = reminders.filter((remind) => {
+      const remindDate = new Date(remind.date);
+      return isToday(remindDate);
+    });
+    const getEmojiByRemindType = {
+      call: "📞",
+      shopping: "🛒",
+      meeting: "📅",
+    };
+    if (remindersToday.length > 0) {
+      remindersToday.map((item) =>
+        toast.info(
+          `${getEmojiByRemindType[item.type]} ${item.description} hoje!`
+        )
+      );
+    }
+  }, [reminders]);
 
   return (
     <ReminderContext.Provider
