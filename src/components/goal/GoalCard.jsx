@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Edit, Trash2 } from "react-feather";
+import { useCategory } from "../../contexts/CategoryContext";
 import "./goalCard.css";
 
 const GoalCard = ({ goal, onEdit, onDelete }) => {
+  const [isCategoryMinimized, setIsCategoryMinimized] = useState(true);
+  const { categories } = useCategory();
+  const category = categories.find((cat) => cat.id === goal.categoryId);
+
   const statusMapping = {
     success: {
       label: "Concluída",
@@ -26,37 +31,60 @@ const GoalCard = ({ goal, onEdit, onDelete }) => {
     },
   };
 
-  const { label, className, width } = statusMapping[goal.status] || statusMapping.todo;
+  const { label, className, width } =
+    statusMapping[goal.status] || statusMapping.todo;
 
   return (
-    <div className="goal-card">
-      <div className="goal-category" style={{ backgroundColor: goal.categoryColor }} />
-      <div className="flex justify-between items-center">
+    <div
+      className="flex justify-between items-center px-4 py-2 my-1 bg-white rounded-lg"
+      style={{ boxShadow: `0px 7px 0px 0px rgba(0, 0, 0, 0.15)` }}
+    >
+      <div className="flex flex-col my-1 gap-2 font-semibold break-all text-base">
+        <span
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCategoryMinimized(!isCategoryMinimized);
+          }}
+          className="px-2 py-1 rounded-md cursor-pointer text-xs text-white"
+          style={{
+            backgroundColor: category ? category.color : "#ccc",
+            width: isCategoryMinimized ? "40px" : "auto",
+            height: "auto",
+            display: "inline-block",
+            textAlign: "center",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {!isCategoryMinimized && (category ? category.name : "Sem categoria")}
+        </span>
+
         <h3>{goal.name}</h3>
-        <div className="flex align-middle gap-1">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit(goal);
-            }}
-            className="hover:bg-gray-300 p-1 rounded-sm mt-0"
-          >
-            <Edit size={16} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete();
-            }}
-            className="hover:bg-gray-300 p-1 rounded-sm mt-0"
-          >
-            <Trash2 size={16} />
-          </button>
+        <div
+          className={`status-box ${className} ${width} p-1 rounded-md mt-2 text-xs text-center w-auto`}
+        >
+          {label}
         </div>
       </div>
-
-      <div className={`status-box ${className} ${width} p-1 rounded-md mt-2 text-center`}>
-        {label}
+      <div className="flex gap-1 items-center justify-center">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit(goal);
+          }}
+          className="hover:bg-[#00585E] p-2 rounded-full hover:text-white"
+        >
+          <Edit size={16} />
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          className="hover:bg-[#00585E] p-2 rounded-full hover:text-white"
+        >
+          <Trash2 size={16} />
+        </button>
       </div>
     </div>
   );

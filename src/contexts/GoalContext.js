@@ -10,12 +10,14 @@ export const GoalProvider = ({ children }) => {
   const [goals, setGoals] = useState([]);
   const [goalDescription, setGoalDescription] = useState("");
 
+  console.log("vendo", goals);
+
   async function fetchGoals() {
     try {
-      const data = await GoalService.getAllByUser(); 
+      const data = await GoalService.getAllByUser();
       setGoals(data);
     } catch (error) {
-      console.error('Erro ao buscar metas:', error);
+      console.error("Erro ao buscar metas:", error);
       toast.error("Erro ao buscar metas.");
     }
   }
