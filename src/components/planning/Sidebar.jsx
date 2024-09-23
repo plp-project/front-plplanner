@@ -37,7 +37,7 @@ const Sidebar = () => {
   return (
     <div
       className={`bg-[#00585E] h-[calc(100vh-3rem)] border-r border-r-[#9fadbc29] transition-all linear duration-500 flex flex-col ${
-        collapsed ? "w-[47px]" : "w-[350px]"
+        collapsed ? "w-[47px]" : "w-[330px]"
       }`}
     >
       {collapsed && (
