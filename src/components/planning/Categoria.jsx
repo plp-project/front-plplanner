@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useCategory } from "../../contexts/CategoryContext";
 import { Trash } from "react-feather";
 import "./categoria.css";
 import CategoryPopover from "../categoryPopover";
-import Modal from "./Modal";
 
 const Categoria = ({ categoriaId }) => {
   const { categories, deleteCategory } = useCategory();
-  const [showModal, setShowModal] = useState(false);
   const categoria = categories.find((cat) => cat.id === categoriaId);
 
   useEffect(() => {
@@ -22,14 +20,15 @@ const Categoria = ({ categoriaId }) => {
   }
 
   const excluirCategoria = async (categoriaId) => {
-    setShowModal(true);
-    if (true) return;
+    const confirmDelete = window.confirm(
+      "Tem certeza que deseja excluir esta categoria?"
+    );
+    if (!confirmDelete) return;
     deleteCategory(categoriaId);
   };
 
   return (
     <li>
-      <Modal isOpen={showModal} />
       <div className="items-center px-3 py-2 w-full text-sm flex justify-start align-baseline hover:bg-gray-500 hover:bg-opacity-25">
         <div className="d-flex justify-between flex-1">
           <div className="d-flex">

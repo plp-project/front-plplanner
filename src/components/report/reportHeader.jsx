@@ -4,6 +4,8 @@ function ReportHeader() {
   const { periodSelected, changePeriodSelected, date, changeDate } =
     useReport();
 
+  const today = new Date().toLocaleString("pt-br");
+
   return (
     <div className="p-4 flex justify-between items-center w-full bg-opacity-50">
       <h1 className="text-2xl text-gray-600 font-bold my-2">Relatório</h1>
