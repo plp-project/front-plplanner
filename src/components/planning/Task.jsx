@@ -35,6 +35,9 @@ const Task = ({ task, day, month, year }) => {
       const now = new Date();
       const currentHour = now.getHours();
       if (task.duration === "morning") {
+        if (currentHour > 12) {
+          return (36 - currentHour) * 60 * 60;
+        }
         return (12 - currentHour) * 60 * 60;
       } else if (task.duration === "afternoon") {
         return (18 - currentHour) * 60 * 60;

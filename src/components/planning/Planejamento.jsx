@@ -3,9 +3,10 @@ import Task from "./Task";
 import NewTask from "./NewTask";
 import { usePlanning } from "../../contexts/PlanningContext";
 
-const Planejamento = ({ month, year }) => {
+const Planejamento = ({ month, year, getTodayRef }) => {
   const { getPlanningByDate } = usePlanning();
   const daysInMonth = new Date(year, month, 0).getDate();
+  const today = new Date().getDate(); // Pegamos o dia atual
 
   const renderDays = () => {
     const days = [];
@@ -20,9 +21,13 @@ const Planejamento = ({ month, year }) => {
       const date = new Date(year, month - 1, day);
       const filteredPlanning = getPlanningByDate(date);
 
+      // Adicionamos uma referência especial ao dia atual
+      const dayRef = day === today ? getTodayRef : null;
+
       days.push(
         <div
           key={day}
+          ref={dayRef}
           className="mr-4 w-60 h-fit p-2 flex-shrink-0"
           style={{
             background: `#F3F5F6`,
