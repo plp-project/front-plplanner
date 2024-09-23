@@ -1,18 +1,32 @@
-export const categoryColors =
-  [
-    "#FE9200", // Orange
-    "#FF0000", // Red
-    "#DBDF00", // Lime
-    "#F4796B", // Soft Coral
-    "#FF5733", // Laranja Vibrante
-    "#67BC57", // Verde
-    "#3357FF", // Azul Elétrico
-    "#FF97CF", // Rosa
-    "#00A8FF", // Azul Claro
-    "#990099", // Roxo
-    "#8B4513", // Marrom Terra
-    "#FFDEAD", // Branco Antigo
-    "#FFD700", // Dourado
-    "#B22222", // Vermelho Tijolo
-    "#000000", // Preto
-  ]
+export const categoryColors = [
+  "#164b35",
+  "#533f04",
+  "#702e00",
+  "#5d1f1a",
+  "#352c63",
+  "#216e4e",
+  "#7f5f01",
+  "#a54800",
+  "#ae2e24",
+  "#5e4db2",
+  "#4bce97",
+  "#e2b203",
+  "#fea362",
+  "#f87168",
+  "#9f8fef",
+  "#09326c",
+  "#164555",
+  "#37471f",
+  "#50253f",
+  "#454f59",
+  "#0055cc",
+  "#206a83",
+  "#4c6b1f",
+  "#943d73",
+  "#596773",
+  "#579dff",
+  "#6cc3e0",
+  "#94c748",
+  "#e774bb",
+  "#8c9bab",
+];

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Bell, Search } from "react-feather";
+import { Bell } from "react-feather";
 import { useReminder } from "../../contexts/ReminderContext";
 import { Notification } from "../notification";
 

@@ -8,7 +8,12 @@ const Main = () => {
 
   return (
     <div className="flex flex-col w-full bg-white">
-      <SecondHeader month={month} year={year} setMonth={setMonth} setYear={setYear} />
+      <SecondHeader
+        month={month}
+        year={year}
+        setMonth={setMonth}
+        setYear={setYear}
+      />
       <Quadro month={month} year={year} />
     </div>
   );
